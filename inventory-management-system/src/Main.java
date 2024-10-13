@@ -1,5 +1,4 @@
-import commands.Command;
-import commands.ICommand;
+import commands.*;
 import repository.IProductRepository;
 import repository.ProductRepository;
 import service.IProductService;
@@ -10,8 +9,14 @@ public class Main {
     public static void main(String[] args) {
         IProductRepository productRepository = new ProductRepository();
         IProductService productService = new ProductService(productRepository);
-        ICommand command = new Command(productService);
+        CommandExecutor executor = new CommandExecutor();
 
-        command.run();
+        executor.register("1", new GetAllProductsCommand(productService));
+        executor.register("2", new GetProductByCodeCommand(productService));
+        executor.register("3", new AddProductCommand(productService));
+        executor.register("4", new UpdateProductCommand(productService));
+        executor.register("5", new DeleteProductCommand(productService));
+
+        executor.run();
     }
 }
