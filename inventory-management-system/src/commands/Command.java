@@ -70,22 +70,12 @@ public class Command implements ICommand {
     }
 
     private void command3(){
-        Product product = new Product();
-        System.out.print("Enter the product code: ");
-        product.setProductCode(scanner.nextLine());
-        System.out.print("Enter the product name: ");
-        product.setProductName(scanner.nextLine());
-        System.out.print("Enter the quantity: ");
-        product.setQuantity(Integer.parseInt(scanner.nextLine()));
-        System.out.print("Enter the product brand: ");
-        product.setBrand(scanner.nextLine());
-        System.out.print("Enter the product price: ");
-        product.setCostPrice(Double.parseDouble(scanner.nextLine()));
-        System.out.print("Enter the sell price: ");
-        product.setSellPrice(Double.parseDouble(scanner.nextLine()));
-        product.setTotalCost(product.getCostPrice() * product.getQuantity());
-        product.setTotalRevenue(product.getSellPrice() * product.getQuantity() - product.getTotalCost());
-        productService.addProduct(product);
+        Product product = productService.addProduct();
+        if(product != null) {
+            System.out.println("Product added successfully");
+        } else {
+            System.out.println("Product not added");
+        }
     }
 
     private void command4(){

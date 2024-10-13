@@ -30,11 +30,24 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public void addProduct(Product product) {
-        Product addedProduct = productRepository.addProduct(product);
-        if(addedProduct != null) {
-            System.out.println("Product added successfully");
-        }
+    public Product addProduct() {
+        Scanner scanner = new Scanner(System.in);
+        Product product = new Product();
+        System.out.print("Enter the product code: ");
+        product.setProductCode(scanner.nextLine());
+        System.out.print("Enter the product name: ");
+        product.setProductName(scanner.nextLine());
+        System.out.print("Enter the quantity: ");
+        product.setQuantity(Integer.parseInt(scanner.nextLine()));
+        System.out.print("Enter the product brand: ");
+        product.setBrand(scanner.nextLine());
+        System.out.print("Enter the product price: ");
+        product.setCostPrice(Double.parseDouble(scanner.nextLine()));
+        System.out.print("Enter the sell price: ");
+        product.setSellPrice(Double.parseDouble(scanner.nextLine()));
+        product.setTotalCost(product.getCostPrice() * product.getQuantity());
+        product.setTotalRevenue(product.getSellPrice() * product.getQuantity() - product.getTotalCost());
+        return productRepository.addProduct(product);
     }
 
     @Override
