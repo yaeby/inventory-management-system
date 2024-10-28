@@ -118,11 +118,11 @@ The system allows users to perform basic CRUD operations with the products store
 The implementation of the product manager for a warehouse has been successfully completed using the SOLID principles, effectively incorporating all of them, but not only SRP and OCP. This structured approach not only enhances code maintainability and scalability but also ensures that the system is robust and adaptable for future requirements. Overall, the project stands as a testament to the effective application of these design principles in creating a functional inventory management system.
 
 ### Output:
-![img_9.png](img_9.png)
-![img_5.png](img_5.png)
-![img_6.png](img_6.png)
-![img_7.png](img_7.png)
-![img_8.png](img_8.png)
+![img_9.png](assets/img_9.png)
+![img_5.png](assets/img_5.png)
+![img_6.png](assets/img_6.png)
+![img_7.png](assets/img_7.png)
+![img_8.png](assets/img_8.png)
 
 ----
 
