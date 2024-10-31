@@ -290,7 +290,7 @@ public class Main {
 ## Conclusions / Screenshots / Results
 In conclusion, the task of this laboratory work was done successfully, implementing these creational design patterns, making our project more simple, abstract and robust. The creational design pattern gave the opportunity to develop vastly this project, maintaining the solid principle and its clarity.   
 
-![img.png](assets/img.png)
+![img.png](inventory-management-system/assets/img.png)
 
 ----
 
