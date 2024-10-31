@@ -1,18 +1,17 @@
-package commands;
+package commands.product;
 
+import commands.Command;
 import service.IProductService;
+import service.ProductService;
 
 import java.util.Scanner;
 
 public class DeleteProductCommand implements Command {
-    private final IProductService productService;
-    Scanner scanner = new Scanner(System.in);
 
-    public DeleteProductCommand(IProductService productService) {
-        this.productService = productService;
-    }
     @Override
     public void execute() {
+        IProductService productService = ProductService.getInstance();
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the product code: ");
         String productCode = scanner.nextLine();
         productService.deleteProduct(productCode);

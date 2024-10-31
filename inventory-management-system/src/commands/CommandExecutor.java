@@ -1,5 +1,8 @@
 package commands;
 
+import factory.CommandFactory;
+import factory.ProductCommandFactory;
+import factory.UserCommandFactory;
 import menu.Printer;
 
 import java.util.HashMap;
@@ -7,36 +10,47 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CommandExecutor {
-    private final Map<String, Command> commandMap;
-    private final Scanner scanner;
-    private final Printer printer;
+
+    private final Map<String, CommandFactory> factories = new HashMap<>();
+    private final Printer printer = new Printer();
 
     public CommandExecutor() {
-        commandMap = new HashMap<>();
-        scanner = new Scanner(System.in);
-        printer = new Printer();
-    }
-
-    public void register(String commandKey, Command command) {
-        commandMap.put(commandKey, command);
+        factories.put("product", new ProductCommandFactory());
+        factories.put("user", new UserCommandFactory());
     }
 
     public void run() {
-        boolean quit = false;
-        while (!quit) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
             printer.printMenu();
             System.out.print("> ");
-            String input = scanner.nextLine();
-            if (input.equals("0") || input.equalsIgnoreCase("exit")) {
-                quit = true;
-                scanner.close();
+            String category = scanner.nextLine().toLowerCase();
+
+            if (category.equals("0") || category.equals("exit")) {
+                printer.printExitMessage();
+                break;
+            }
+
+            CommandFactory factory = factories.get(category);
+            if (factory == null) {
+                printer.printInvalidCategory();
+                continue;
+            }
+
+            printer.printCrudCommands();
+            System.out.print("> ");
+            String commandType = scanner.nextLine();
+
+            if (commandType.equalsIgnoreCase("b")) {
+                continue;
+            }
+
+            Command command = factory.createCommand(commandType);
+            if (command != null) {
+                command.execute();
             } else {
-                Command command = commandMap.get(input);
-                if (command != null) {
-                    command.execute();
-                } else {
-                    System.out.println("Invalid input: " + input);
-                }
+                printer.printInvalidCommand();
             }
         }
     }

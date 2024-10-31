@@ -1,36 +1,52 @@
 package service;
 
+import exceptions.ResourceNotFoundException;
 import model.Product;
 import repository.IProductRepository;
+import repository.ProductRepository;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class ProductService implements IProductService{
 
+    private static volatile ProductService instance;
     private final IProductRepository productRepository;
 
-    public ProductService(IProductRepository productRepository) {
-        this.productRepository = productRepository;
+    private ProductService() {
+        this.productRepository = ProductRepository.getInstance();
+    }
+
+    public static ProductService getInstance() {
+        ProductService result = instance;
+        if (result == null) {
+            synchronized (ProductService.class) {
+                result = instance;
+                if (result == null) {
+                    instance = result = new ProductService();
+                }
+            }
+        }
+        return result;
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
 
     @Override
     public Product getProductByCode(String productCode) {
         Product product = productRepository.findByProductCode(productCode);
-        if(product == null) {
-            System.out.println("No such product with code " + productCode);
-            return null;
+        if (product == null) {
+            throw new ResourceNotFoundException("Product with code " + productCode + " not found.");
         }
         return product;
     }
 
+
     @Override
-    public Product addProduct() {
+    public void addProduct() {
         Scanner scanner = new Scanner(System.in);
         Product product = new Product();
         System.out.print("Enter the product code: ");
@@ -47,7 +63,9 @@ public class ProductService implements IProductService{
         product.setSellPrice(Double.parseDouble(scanner.nextLine()));
         product.setTotalCost(product.getCostPrice() * product.getQuantity());
         product.setTotalRevenue(product.getSellPrice() * product.getQuantity() - product.getTotalCost());
-        return productRepository.addProduct(product);
+        productRepository.addProduct(product);
+        System.out.println("Product added successfully");
+        scanner.close();
     }
 
     @Override
@@ -94,11 +112,7 @@ public class ProductService implements IProductService{
 
     @Override
     public void deleteProduct(String productCode) {
-        Product product = productRepository.deleteProduct(productCode);
-        if(product == null) {
-            System.out.println("No such product with code " + productCode);
-        } else {
-            System.out.println("Product successfully deleted");
-        }
+        productRepository.deleteProduct(productCode);
+        System.out.println("Product deleted successfully");
     }
 }

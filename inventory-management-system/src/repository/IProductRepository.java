@@ -5,13 +5,14 @@ import model.Product;
 import java.util.List;
 
 public interface IProductRepository {
+
     List<Product> findAll();
 
     Product findByProductCode(String productCode);
 
-    Product addProduct(Product product);
+    void addProduct(Product product);
 
-    Product deleteProduct(String productCode);
+    void deleteProduct(String productCode);
 
     void updateProduct(Product product);
 }
