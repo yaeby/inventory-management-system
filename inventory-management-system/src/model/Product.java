@@ -1,7 +1,7 @@
     package model;
 
     public class Product {
-        private Long prodId;
+        private Long id;
         private String productCode;
         private String productName;
         private String brand;
@@ -14,12 +14,12 @@
         public Product() {
         }
 
-        public Long getProdId() {
-            return prodId;
+        public Long getId() {
+            return id;
         }
 
-        public void setProdId(Long productId) {
-            this.prodId = productId;
+        public void setId(Long productId) {
+            this.id = productId;
         }
 
         public String getProductCode() {
@@ -89,10 +89,11 @@
         @Override
         public String toString() {
             return "Product{" +
-                    "productCode='" + productCode + '\'' +
+                    "prodId=" + id +
+                    ", productCode='" + productCode + '\'' +
                     ", productName='" + productName + '\'' +
-                    ", quantity=" + quantity +
                     ", brand='" + brand + '\'' +
+                    ", quantity=" + quantity +
                     ", costPrice=" + costPrice +
                     ", sellPrice=" + sellPrice +
                     ", totalCost=" + totalCost +
