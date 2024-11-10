@@ -25,6 +25,7 @@ public class Printer {
                 Select a command:
                 product - product commands
                 user - user commands
+                order - delivery commands
                 0 - exit
                 """);
     }

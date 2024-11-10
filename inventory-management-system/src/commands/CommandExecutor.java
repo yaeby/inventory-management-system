@@ -1,6 +1,7 @@
 package commands;
 
 import factory.CommandFactory;
+import factory.DeliveryFactory;
 import factory.ProductCommandFactory;
 import factory.UserCommandFactory;
 import menu.Printer;
@@ -17,6 +18,7 @@ public class CommandExecutor {
     public CommandExecutor() {
         factories.put("product", new ProductCommandFactory());
         factories.put("user", new UserCommandFactory());
+        factories.put("order", new DeliveryFactory());
     }
 
     public void run() {

@@ -39,7 +39,7 @@ public class UserService implements IUserService{
     public User getUserById(Long id) {
         User user = userRepository.findById(id);
         if (user == null) {
-            throw new ResourceNotFoundException("User with id" + id + " not found");
+            throw new ResourceNotFoundException("User with id: " + id + " not found");
         }
         return user;
     }
@@ -48,12 +48,12 @@ public class UserService implements IUserService{
     public void addUser() {
         Scanner scanner = new Scanner(System.in);
         User user = new User();
-        System.out.print("Enter the product code: ");
+        System.out.print("Enter the username: ");
         user.setUsername(scanner.nextLine());
-        System.out.print("Enter the product name: ");
+        System.out.print("Enter the password: ");
         user.setPassword(scanner.nextLine());
         userRepository.addUser(user);
-        System.out.println("Product added successfully");
+        System.out.println("User added successfully");
         scanner.close();
     }
 

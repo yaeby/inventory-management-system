@@ -53,6 +53,7 @@ public class UserRepository implements IUserRepository{
     public User findById(Long id) {
         String query = "SELECT * FROM user WHERE id = ?";
         try(PreparedStatement preparedStatement= connection.prepareStatement(query)){
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return createUser(resultSet);
