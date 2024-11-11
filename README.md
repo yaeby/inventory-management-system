@@ -145,7 +145,7 @@ and structure will be maintained the same, keeping the project flexible.
 2. ### Composite
 Since we build a software for a warehouse, at the warehouse the orders of clients are packed
 into boxes, which are packed into bigger boxes and sent to a location to be dispatched and
-send to its clients addresses. So, we have to build this functionality, adn the composite 
+send to its clients addresses. So, we have to build this functionality, and the composite 
 pattern will help us.  
 So since an order can have multiple products, and orders from same location 
 have to be patched together (in the same truck for example), we can see a tree structure here.
