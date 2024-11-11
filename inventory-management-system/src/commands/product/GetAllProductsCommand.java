@@ -2,6 +2,7 @@ package commands.product;
 
 import commands.Command;
 import model.Product;
+import repository.ProductRepository;
 import service.IProductService;
 import service.ProductService;
 
@@ -12,14 +13,10 @@ public class GetAllProductsCommand implements Command {
 
     @Override
     public void execute() {
-        IProductService productService = ProductService.getInstance();
-        try {
-            List<Product> products = productService.getAllProducts();
-            for(Product product : products){
-                System.out.println(product.toString());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        ProductService productService = new ProductService(new ProductRepository());
+        List<Product> products = productService.findAll();
+        for(Product product : products){
+            System.out.println(product.toString());
         }
     }
 }

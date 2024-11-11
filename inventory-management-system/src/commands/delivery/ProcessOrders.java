@@ -4,24 +4,25 @@ import commands.Command;
 import model.CompositeOrder;
 import model.Order;
 import model.Product;
+import repository.ProductRepository;
 import service.DeliveryService;
 import service.IProductService;
 import service.ProductService;
 
 
 public class ProcessOrders implements Command {
-    private final IProductService productService;
+    private final ProductService productService;
     private final DeliveryService deliveryService;
 
     public ProcessOrders() {
-        this.productService = ProductService.getInstance();
+        productService = new ProductService(new ProductRepository());
         this.deliveryService = new DeliveryService();
     }
 
     @Override
     public void execute() {
-        Product prod1 = productService.getProductByCode("PRD001");
-        Product prod2 = productService.getProductByCode("PRD002");
+        Product prod1 = productService.findById(1L);
+        Product prod2 = productService.findById(2L);
 
         Order order1 = new Order("ORD-001");
         order1.addProduct(prod1, 1);

@@ -12,27 +12,13 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductRepository implements IProductRepository {
+public class ProductRepository implements IRepository<Product, Long> {
 
-    private static volatile ProductRepository instance;
     private final Connection connection;
 
-    private ProductRepository() {
+    public ProductRepository() {
         ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
         connection = connectionFactory.getConnection();
-    }
-
-    public static ProductRepository getInstance() {
-        ProductRepository result = instance;
-        if (result == null) {
-            synchronized (ProductRepository.class) {
-                result = instance;
-                if (result == null) {
-                    instance = result = new ProductRepository();
-                }
-            }
-        }
-        return result;
     }
 
     @Override
@@ -51,22 +37,18 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Product findByProductCode(String productCode) {
-        String query = "SELECT * FROM product WHERE product_code = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, productCode);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return createProduct(resultSet);
-                } else {
-                    return null;
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+    public Product findById(Long id) {
+        String query = "SELECT * FROM product WHERE id = ?";
+        try(PreparedStatement preparedStatement= connection.prepareStatement(query)){
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return createProduct(resultSet);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     private Product createProduct(ResultSet resultSet) throws SQLException {
@@ -84,7 +66,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void addProduct(Product product) {
+    public void add(Product product) {
         String query = "INSERT INTO product (product_code, product_name, brand, quantity, cost_price, sell_price, total_cost, total_revenue) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getProductCode());
@@ -102,10 +84,10 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void deleteProduct(String productCode) {
-        String query = "DELETE FROM product WHERE product_code = ?";
+    public void delete(Long id) {
+        String query = "DELETE FROM product WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, productCode);
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,7 +95,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void updateProduct(Product product) {
+    public void update(Product product) {
         String query = "UPDATE product SET product_name = ?, brand = ?, quantity = ?, cost_price = ?, sell_price = ?, total_cost = ?, total_revenue = ? WHERE product_code = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getProductName());

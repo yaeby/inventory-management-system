@@ -8,10 +8,7 @@ public class Printer {
 
     public void printCommand(String category){
         switch (category){
-            case "product":
-                printCrudCommands();
-                break;
-            case "user":
+            case "product", "user":
                 printCrudCommands();
                 break;
             case "delivery":

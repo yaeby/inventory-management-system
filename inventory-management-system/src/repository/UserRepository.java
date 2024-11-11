@@ -11,27 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository implements IUserRepository{
+public class UserRepository implements IRepository<User, Long> {
 
-    private static volatile UserRepository instance;
     private final Connection connection;
 
-    private UserRepository() {
+    public UserRepository() {
         ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
         connection = connectionFactory.getConnection();
-    }
-
-    public static UserRepository getInstance() {
-        UserRepository result = instance;
-        if (result == null) {
-            synchronized (UserRepository.class) {
-                result = instance;
-                if (result == null) {
-                    instance = result = new UserRepository();
-                }
-            }
-        }
-        return result;
     }
 
     @Override
@@ -73,7 +59,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public void addUser(User user) {
+    public void add(User user) {
         String query = "INSERT INTO user (username, password) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
@@ -85,7 +71,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         String query = "UPDATE user SET username = ?, password = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
@@ -98,7 +84,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         String query = "DELETE FROM user WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, id);

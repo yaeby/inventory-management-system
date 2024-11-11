@@ -2,51 +2,32 @@ package service;
 
 import exceptions.ResourceNotFoundException;
 import model.Product;
-import repository.IProductRepository;
-import repository.ProductRepository;
-
+import repository.IRepository;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProductService implements IProductService{
+public class ProductService extends Service<Product, Long>{
 
-    private static volatile ProductService instance;
-    private final IProductRepository productRepository;
-
-    private ProductService() {
-        this.productRepository = ProductRepository.getInstance();
-    }
-
-    public static ProductService getInstance() {
-        ProductService result = instance;
-        if (result == null) {
-            synchronized (ProductService.class) {
-                result = instance;
-                if (result == null) {
-                    instance = result = new ProductService();
-                }
-            }
-        }
-        return result;
+    public ProductService(IRepository<Product, Long> repository) {
+        super(repository);
     }
 
     @Override
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public List<Product> findAll(){
+        return repository.findAll();
     }
 
     @Override
-    public Product getProductByCode(String productCode) {
-        Product product = productRepository.findByProductCode(productCode);
+    public Product findById(Long id){
+        Product product = repository.findById(id);
         if (product == null) {
-            throw new ResourceNotFoundException("Product with code " + productCode + " not found.");
+            throw new ResourceNotFoundException("Product with id: " + id + " not found");
         }
         return product;
     }
 
-
     @Override
-    public void addProduct() {
+    public void add() {
         Scanner scanner = new Scanner(System.in);
         Product product = new Product();
         System.out.print("Enter the product code: ");
@@ -63,14 +44,13 @@ public class ProductService implements IProductService{
         product.setSellPrice(Double.parseDouble(scanner.nextLine()));
         product.setTotalCost(product.getCostPrice() * product.getQuantity());
         product.setTotalRevenue(product.getSellPrice() * product.getQuantity() - product.getTotalCost());
-        productRepository.addProduct(product);
+        repository.add(product);
         System.out.println("Product added successfully");
-        scanner.close();
     }
 
     @Override
-    public void updateProduct(String productCode) {
-        Product product = getProductByCode(productCode);
+    public void update(Long id) {
+        Product product = findById(id);
         if(product != null){
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter the product name: ");
@@ -105,14 +85,14 @@ public class ProductService implements IProductService{
             product.setTotalCost(product.getCostPrice() * product.getQuantity());
             product.setTotalRevenue(product.getSellPrice() * product.getQuantity() - product.getTotalCost());
 
-            productRepository.updateProduct(product);
+            repository.update(product);
             System.out.println("Product updated successfully");
         }
     }
 
     @Override
-    public void deleteProduct(String productCode) {
-        productRepository.deleteProduct(productCode);
+    public void delete(Long id) {
+        repository.delete(id);
         System.out.println("Product deleted successfully");
     }
 }

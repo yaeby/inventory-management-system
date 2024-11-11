@@ -2,42 +2,25 @@ package service;
 
 import exceptions.ResourceNotFoundException;
 import model.User;
-import repository.IUserRepository;
-import repository.UserRepository;
+import repository.IRepository;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class UserService implements IUserService{
+public class UserService extends Service<User, Long>{
 
-    private static volatile UserService instance;
-    private final IUserRepository userRepository;
-
-    private UserService() {
-        this.userRepository = UserRepository.getInstance();
-    }
-
-    public static UserService getInstance() {
-        UserService result = instance;
-        if (result == null) {
-            synchronized (UserService.class) {
-                result = instance;
-                if (result == null) {
-                    instance = result = new UserService();
-                }
-            }
-        }
-        return result;
+    public UserService(IRepository<User, Long> repository) {
+        super(repository);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<User> findAll() {
+        return repository.findAll();
     }
 
     @Override
-    public User getUserById(Long id) {
-        User user = userRepository.findById(id);
+    public User findById(Long id) {
+        User user = repository.findById(id);
         if (user == null) {
             throw new ResourceNotFoundException("User with id: " + id + " not found");
         }
@@ -45,21 +28,20 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void addUser() {
+    public void add() {
         Scanner scanner = new Scanner(System.in);
         User user = new User();
         System.out.print("Enter the username: ");
         user.setUsername(scanner.nextLine());
         System.out.print("Enter the password: ");
         user.setPassword(scanner.nextLine());
-        userRepository.addUser(user);
+        repository.add(user);
         System.out.println("User added successfully");
-        scanner.close();
     }
 
     @Override
-    public void updateUser(Long id) {
-        User user = userRepository.findById(id);
+    public void update(Long id) {
+        User user = repository.findById(id);
         if (user != null) {
             Scanner scanner = new Scanner(System.in);
 
@@ -75,23 +57,21 @@ public class UserService implements IUserService{
                 user.setPassword(password);
             }
 
-            userRepository.updateUser(user);
+            repository.update(user);
             System.out.println("User updated successfully");
         } else {
             System.out.println("User with ID " + id + " not found.");
         }
     }
 
-
     @Override
-    public void deleteUser(Long id) {
-        User user = userRepository.findById(id);
+    public void delete(Long id) {
+        User user = repository.findById(id);
         if (user != null) {
-            userRepository.deleteUser(id);
+            repository.delete(id);
             System.out.println("User deleted successfully.");
         } else {
             System.out.println("User with ID " + id + " not found.");
         }
     }
-
 }

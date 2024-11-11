@@ -1,6 +1,7 @@
 package commands.product;
 
 import commands.Command;
+import repository.ProductRepository;
 import service.IProductService;
 import service.ProductService;
 
@@ -10,10 +11,10 @@ public class DeleteProductCommand implements Command {
 
     @Override
     public void execute() {
-        IProductService productService = ProductService.getInstance();
+        ProductService productService = new ProductService(new ProductRepository());
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the product code: ");
-        String productCode = scanner.nextLine();
-        productService.deleteProduct(productCode);
+        System.out.print("Enter the product ID: ");
+        Long id = scanner.nextLong();
+        productService.delete(id);
     }
 }
