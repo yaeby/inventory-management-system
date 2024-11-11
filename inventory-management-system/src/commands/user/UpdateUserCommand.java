@@ -2,7 +2,6 @@ package commands.user;
 
 import commands.Command;
 import repository.UserRepository;
-import service.IUserService;
 import service.UserService;
 
 import java.util.Scanner;

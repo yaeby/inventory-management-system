@@ -3,10 +3,8 @@ package commands.product;
 import commands.Command;
 import model.Product;
 import repository.ProductRepository;
-import service.IProductService;
 import service.ProductService;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class GetAllProductsCommand implements Command {

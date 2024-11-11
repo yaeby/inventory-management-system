@@ -3,7 +3,6 @@ package commands.user;
 import commands.Command;
 import model.User;
 import repository.UserRepository;
-import service.IUserService;
 import service.UserService;
 
 import java.util.List;

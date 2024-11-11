@@ -2,7 +2,6 @@ package commands.product;
 
 import commands.Command;
 import repository.ProductRepository;
-import service.IProductService;
 import service.ProductService;
 
 import java.util.Scanner;
