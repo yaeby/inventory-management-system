@@ -141,6 +141,7 @@ public class AddProductCommand implements Command {
 ```
 So, in the future we can add as many entities in our db as we want, and the business logic
 and structure will be maintained the same, keeping the project flexible.
+
 2. ### Composite
 Since we build a software for a warehouse, at the warehouse the orders of clients are packed
 into boxes, which are packed into bigger boxes and sent to a location to be dispatched and
