@@ -5,28 +5,23 @@ import model.CompositeOrder;
 import model.Order;
 import model.Product;
 import service.DeliveryService;
+import service.IProductService;
+import service.ProductService;
 
 
 public class ProcessOrders implements Command {
-//    private final IProductService productService;
+    private final IProductService productService;
     private final DeliveryService deliveryService;
 
     public ProcessOrders() {
-//        this.productService = ProductService.getInstance();
+        this.productService = ProductService.getInstance();
         this.deliveryService = new DeliveryService();
     }
 
     @Override
     public void execute() {
-//        Product prod1 = productService.getProductByCode("PRD001");
-        Product prod1 = new Product();
-        prod1.setProductName("Laptop");
-        prod1.setSellPrice(999.99);
-
-//        Product prod2 = productService.getProductByCode("PRD002");
-        Product prod2 = new Product();
-        prod2.setProductName("Mouse");
-        prod2.setSellPrice(29.99);
+        Product prod1 = productService.getProductByCode("PRD001");
+        Product prod2 = productService.getProductByCode("PRD002");
 
         Order order1 = new Order("ORD-001");
         order1.addProduct(prod1, 1);

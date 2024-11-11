@@ -1,6 +1,6 @@
 <div align="center">
 
-# Creational Design Patterns
+# Structural Design Patterns
 </div>
 
 ## Author: Copta Adrian | FAF-223

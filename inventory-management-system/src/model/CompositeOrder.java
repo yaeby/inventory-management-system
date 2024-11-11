@@ -24,20 +24,20 @@ public class CompositeOrder implements IOrder {
 
     @Override
     public void addProduct(Product product, int quantity) {
-        throw new UnsupportedOperationException(
-                "Cannot add products directly to a composite order. Add to individual orders instead.");
+        throw new UnsupportedOperationException("Product cannot be added!");
     }
 
     @Override
     public double getTotalCost() {
-        return orders.stream()
+        double total = orders.stream()
                 .mapToDouble(IOrder::getTotalCost)
                 .sum();
+        return Math.round(total * 100.0) / 100.0;
     }
 
     @Override
     public void display() {
-        System.out.println(groupType + " Group: " + groupId);
+        System.out.println("Group: " + groupId + " Type: " + groupType);
         System.out.println("Contains " + orders.size() + " orders:");
         orders.forEach(order -> {
             System.out.println("  " + order.getOrderInfo());
@@ -47,7 +47,7 @@ public class CompositeOrder implements IOrder {
 
     @Override
     public String getOrderInfo() {
-        return groupType + " Group " + groupId + " - Orders: " +
+        return "Group: " + groupId + " Type: " + groupType + " - Orders: " +
                 orders.size() + " - Total: $" + getTotalCost();
     }
 }

@@ -29,9 +29,10 @@ public class Order implements IOrder {
 
     @Override
     public double getTotalCost() {
-        return items.stream()
+        double total = items.stream()
                 .mapToDouble(item -> item.product.getSellPrice() * item.quantity)
                 .sum();
+        return Math.round(total * 100.0) / 100.0;
     }
 
     @Override
