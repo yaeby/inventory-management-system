@@ -358,17 +358,17 @@ The structural design pattern gave the opportunity to develop new features for t
 keeping its new structures flexible and efficient.   
 
 <figure>
-  <img src="../assets/img.png" alt="Bridge Result">
+  <img src="inventory-management-system/assets/img.png" alt="Bridge Result">
   <figcaption><small>Result implementing Bridge</small></figcaption>
 </figure>
 
 <figure>
-  <img src="../assets/img_1.png" alt="Composite Result">
+  <img src="inventory-management-system/assets/img_1.png" alt="Composite Result">
   <figcaption><small>Result implementing Composite</small></figcaption>
 </figure>
 
 <figure>
-  <img src="../assets/img_2.png" alt="Decorator Result">
+  <img src="inventory-management-system/assets/img_2.png" alt="Decorator Result">
   <figcaption><small>Result implementing Decorator</small></figcaption>
 </figure>
 
