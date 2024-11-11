@@ -4,7 +4,7 @@ import model.IOrder;
 
 public class DeliveryService {
     public void processOrder(IOrder order) {
-        System.out.println("Processing delivery for:");
+        System.out.println("\nProcessing delivery for:");
         order.display();
     }
 

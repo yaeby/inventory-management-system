@@ -6,16 +6,14 @@ import model.Product;
 
 public class ExpressDeliveryDecorator extends BaseOrderDecorator {
     private static final double EXPRESS_FEE = 25.0;
-    private String deliveryTime;
 
-    public ExpressDeliveryDecorator(IOrder order, String deliveryTime) {
+    public ExpressDeliveryDecorator(IOrder order) {
         super(order);
-        this.deliveryTime = deliveryTime;
     }
 
     @Override
     public String getDescription() {
-        return "Express Delivery (" + deliveryTime + ")";
+        return "Express Delivery";
     }
 
     @Override

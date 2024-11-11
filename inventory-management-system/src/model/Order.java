@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements IOrder {
-    private String orderId;
+    private final String orderId;
     private List<OrderItem> items;
 
     public Order(String orderId) {

@@ -18,7 +18,7 @@ public class CommandExecutor {
     public CommandExecutor() {
         factories.put("product", new ProductCommandFactory());
         factories.put("user", new UserCommandFactory());
-        factories.put("order", new DeliveryFactory());
+        factories.put("delivery", new DeliveryFactory());
     }
 
     public void run() {
@@ -40,7 +40,8 @@ public class CommandExecutor {
                 continue;
             }
 
-            printer.printCrudCommands();
+            printer.printCommand(category);
+
             System.out.print("> ");
             String commandType = scanner.nextLine();
 

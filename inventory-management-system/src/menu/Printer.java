@@ -6,6 +6,29 @@ public class Printer {
         System.out.println("\n\tWELCOME TO THE WAREHOUSE MANAGER");
     }
 
+    public void printCommand(String category){
+        switch (category){
+            case "product":
+                printCrudCommands();
+                break;
+            case "user":
+                printCrudCommands();
+                break;
+            case "delivery":
+                printDeliveryCommands();
+                break;
+        }
+    }
+
+    public void printDeliveryCommands(){
+        System.out.println("""
+               
+                Select a command:
+                1. process orders
+                2. process special orders
+               """);
+    }
+
     public void printCrudCommands(){
         System.out.println("""
                
@@ -25,7 +48,7 @@ public class Printer {
                 Select a command:
                 product - product commands
                 user - user commands
-                order - delivery commands
+                delivery - delivery commands
                 0 - exit
                 """);
     }
