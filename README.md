@@ -357,19 +357,12 @@ making our project more flexible, abstract and robust.
 The structural design pattern gave the opportunity to develop new features for this project,
 keeping its new structures flexible and efficient.   
 
-<figure>
-  <img src="inventory-management-system/assets/img.png" alt="Bridge Result">
-  <figcaption><small>Result implementing Bridge</small></figcaption>
-</figure>
+<small>Result implementing Bridge:</small>  
+![img.png](inventory-management-system/assets/img.png)  
+<small>Result implementing Composite:</small>  
+![img.png](inventory-management-system/assets/img_1.png)  
+<small>Result implementing Decorator:</small>  
+![img.png](inventory-management-system/assets/img_2.png)  
 
-<figure>
-  <img src="inventory-management-system/assets/img_1.png" alt="Composite Result">
-  <figcaption><small>Result implementing Composite</small></figcaption>
-</figure>
-
-<figure>
-  <img src="inventory-management-system/assets/img_2.png" alt="Decorator Result">
-  <figcaption><small>Result implementing Decorator</small></figcaption>
-</figure>
 
 ----
