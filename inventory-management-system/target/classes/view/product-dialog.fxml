@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductDialogController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+    <children>
+        <GridPane hgap="10.0" vgap="10.0">
+            <children>
+                <Label text="Code:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="codeField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Brand:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="brandField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Cost Price:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="costPriceField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Sell Price:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="sellPriceField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+        </HBox>
+    </children>
+</VBox>
