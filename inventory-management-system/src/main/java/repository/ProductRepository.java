@@ -114,7 +114,17 @@ public class ProductRepository implements IRepository<Product, Long> {
     }
 
     @Override
-    public Product findByName(String username) {
+    public Product findByName(String name) {
+        String query = "Select * FROM product WHERE product_name = ?";
+        try(PreparedStatement preparedStatement= connection.prepareStatement(query)){
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return createProduct(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 }

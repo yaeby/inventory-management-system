@@ -1,27 +1,29 @@
 package handler;
 
-import repository.UserRepository;
-import service.UserService;
+import model.User;
 
 public abstract class LoginHandler {
     private LoginHandler next;
-    protected UserService userService;
+    private static User user;
 
-    public LoginHandler(UserService userService) {
-        this.userService = userService;
-    }
-
-    public LoginHandler setNext(LoginHandler next) {
+    public void setNext(LoginHandler next) {
         this.next = next;
-        return next;
     }
 
-    public abstract boolean handle(String username, String password);
+    public abstract LoginResult handle(String username, String password);
 
-    protected boolean handleNext(String username, String password) {
+    protected LoginResult handleNext(String username, String password) {
         if(next == null) {
-            return true;
+            return new LoginResult(true, null);
         }
         return next.handle(username, password);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    protected void setUser(User user) {
+        LoginHandler.user = user;
     }
 }

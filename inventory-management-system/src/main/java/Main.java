@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
-            primaryStage.setTitle("Inventory Management System - Login");
+            primaryStage.setTitle("Inventory Management System");
             primaryStage.setScene(new Scene(root));
             primaryStage.setResizable(false);
             primaryStage.show();

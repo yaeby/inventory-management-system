@@ -8,5 +8,5 @@ public interface IRepository<T, ID> {
     void add(T entity);
     void update(T entity);
     void delete(ID id);
-    T findByName(String username);
+    T findByName(String name);
 }

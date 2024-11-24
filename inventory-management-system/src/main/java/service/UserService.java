@@ -19,21 +19,17 @@ public class UserService extends Service<User, Long>{
 
     @Override
     public User findById(Long id) {
-        User user = repository.findById(id);
-        if (user == null) {
-            throw new ResourceNotFoundException("User with id: " + id + " not found");
-        }
-        return user;
+        return repository.findById(id);
     }
 
     @Override
-    public void add(User user) {
-        repository.add(user);
+    public void add(User entity) {
+        super.add(entity);
     }
 
     @Override
-    public void update(User user) {
-        repository.update(user);
+    public void update(User entity) {
+        super.update(entity);
     }
 
     @Override
@@ -41,9 +37,8 @@ public class UserService extends Service<User, Long>{
         User user = repository.findById(id);
         if (user != null) {
             repository.delete(id);
-            System.out.println("User deleted successfully.");
         } else {
-            System.out.println("User with ID " + id + " not found.");
+            throw new ResourceNotFoundException("User not found");
         }
     }
 

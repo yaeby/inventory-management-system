@@ -7,13 +7,6 @@ public class ProductCommandFactory implements CommandFactory {
 
     @Override
     public Command createCommand(String commandType) {
-        return switch (commandType) {
-            case "1" -> new GetAllProductsCommand();
-            case "2" -> new GetProductByIdCommand();
-            case "3" -> new AddProductCommand();
-            case "4" -> new UpdateProductCommand();
-            case "5" -> new DeleteProductCommand();
-            default -> null;
-        };
+        return null;
     }
 }

@@ -20,11 +20,11 @@ public abstract class Service<T, ID> {
     }
 
     public void add(T entity) {
-        repository.add(null);
+        repository.add(entity);
     }
 
     public void update(T entity) {
-        repository.update(null);
+        repository.update(entity);
     }
 
     public void delete(ID id) {

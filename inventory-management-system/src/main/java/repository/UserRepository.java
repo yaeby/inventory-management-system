@@ -95,10 +95,10 @@ public class UserRepository implements IRepository<User, Long> {
     }
 
     @Override
-    public User findByName(String username) {
+    public User findByName(String name) {
         String query = "SELECT * FROM user WHERE username = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setString(1, username);
+            preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return createUser(resultSet);

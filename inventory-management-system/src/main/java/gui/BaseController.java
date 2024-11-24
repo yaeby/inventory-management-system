@@ -6,8 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.User;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,12 +32,21 @@ public class BaseController {
     @FXML
     AnchorPane centerPane;
 
-    private Map<String, String> urls = new HashMap<>();
+    @FXML
+    private Label usernameLabel;
+
+    private User currentUser;
+    private final Map<String, String> urls = new HashMap<>();
 
     public BaseController() {
         urls.put("Products", "/view/products.fxml");
         urls.put("Orders", "/view/orders.fxml");
         urls.put("Dashboard", "/view/dashboard.fxml");
+    }
+
+    public void setUser(User user) {
+        this.currentUser = user;
+        usernameLabel.setText(user.getUsername());
     }
 
     @FXML

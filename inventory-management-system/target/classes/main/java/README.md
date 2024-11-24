@@ -1,6 +1,6 @@
 <div align="center">
 
-# Structural Design Patterns
+# Behavioral Design Patterns
 </div>
 
 ## Author: Copta Adrian | FAF-223
@@ -9,74 +9,218 @@
 
 ## Objectives:
 
-* Get familiar with the Structural DPs.
-* As a continuation of the previous laboratory work, think about the functionalities that your system will need to provide to the user.
-* Implement some additional functionalities using structural design patterns.
+* Study and understand the Behavioral Design Patterns.
+* As a continuation of the previous laboratory work, think about what communication between software entities might be involved in your system.
+* Implement some additional functionalities using behavioral design patterns.
 
 ## Used Design Patterns:
 
-* Bridge
-* Composite
-* Decorator
+* Chain of Responsibility 
+* Command
+* Template
 
 ----
 
 ## Implementation
-Previously, we developed our inventory management system by implementing some
-creational design pattern, our project was respecting the SOLID principles and its functionality.
-To add some new features to our project and maintain it clear, dry and robust, we are going to implement
-some structural design patterns.
+Continuing working on our inventory manager, we migrated from a console app to a
+javafx gui, which gave us the opportunity tu visualize better the inventory of
+our warehouse and also to implement new features and try out new design patterns.
 
-1. ### Bridge
-As you remember, our warehouse system was providing us with some crud operations.
-The project structure of these operations was divided in some layers:  
-repository -> to work with database;  
-service -> to keep the business logic isolated;  
-and a complex command layer that was implementing the AbstractFactory.  
-The implementation was good but if we wanted to create new entities in our database,
-for each entity we would have to provide new interfaces and classes, thus it's better
-to divide and organise single classes with common functionality.  
+1. ### Chain of Responsibility
+First thing that you have to do when using this app is to log in, and to validate
+the user we implemented the chain of responsibility dp, which handles every user's
+input.
   
-First thing first, we replace our `IProductRepository` and `IUserRepository` with a common 
-new interface:
+First we created our base handler, which is `LoginHandler`:
 ```java
-public interface IRepository<T, ID> {
-    List<T> findAll();
-    T findById(ID id);
-    void add(T entity);
-    void update(T entity);
-    void delete(ID id);
-}
-```
-Now, we modify our repositories to implement this interface:
-```java
-public class ProductRepository implements IRepository<Product, Long> {
+public abstract class LoginHandler {
+    private LoginHandler next;
+    private static User user;
 
-    private final Connection connection;
-
-    public ProductRepository() {
-        ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
-        connection = connectionFactory.getConnection();
+    public void setNext(LoginHandler next) {
+        this.next = next;
     }
-    //... Override methods
-}
-```
-and
-```java
-public class UserRepository implements IRepository<User, Long> {
 
-    private final Connection connection;
+    public abstract LoginResult handle(String username, String password);
 
-    public UserRepository() {
-        ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
-        connection = connectionFactory.getConnection();
+    protected LoginResult handleNext(String username, String password) {
+        if(next == null) {
+            return new LoginResult(true, null);
+        }
+        return next.handle(username, password);
     }
-    //... override methods
+
+    public User getUser() {
+        return user;
+    }
+
+    protected void setUser(User user) {
+        LoginHandler.user = user;
+    }
 }
 ```
-Second step to take to implement bridge is to modify also service layer.
-We delete the `IProductService` and `IUserService` and create a single abstract class:
-`Service` that will have a reference to repository layer. 
+Using this class we will be able to set different levels of validations for the user.
+And for the login task we will set just to validate the Username and Password.  
+A handler to check if the Username is registered:
+```java
+public class UserExistsHandler extends LoginHandler{
+    private final UserService userService;
+
+    public UserExistsHandler(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Override
+    public LoginResult handle(String username, String password) {
+        User user = userService.findByName(username);
+        if(user == null) {
+            return new LoginResult(false, "User does not exist");
+        }
+        setUser(user);
+        return handleNext(username, password);
+    }
+}
+
+```
+And one to check if the Password matched the Password written by the user:
+```java
+public class ValidPasswordHandler extends LoginHandler {
+
+    @Override
+    public LoginResult handle(String username, String password) {
+        User user = getUser();
+        if (user != null) {
+            if (!password.equals(user.getPassword())) {
+                return new LoginResult(false, "Password is incorrect");
+            }
+            return handleNext(username, password);
+        }
+        return new LoginResult(false, "Unexpected error: User not found");
+    }
+}
+```
+Now, we set in our `LoginController`, which is the controller for the `login.fxml`,
+the levels of verification:
+```java
+@FXML
+private void handleLogin() {
+    String username = usernameField.getText();
+    String password = passwordField.getText();
+
+    LoginHandler handler = new UserExistsHandler(userService);
+    handler.setNext(new ValidPasswordHandler());
+
+    try {
+        LoginResult result = handler.handle(username, password);
+        if (result.success()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/base.fxml"));
+            Parent root = loader.load();
+
+            BaseController baseController = loader.getController();
+            baseController.setUser(handler.getUser());
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } else {
+            errorLabel.setText(result.message());
+        }
+    } catch (IOException e) {
+        errorLabel.setText("Error loading dashboard");
+        e.printStackTrace();
+    }
+}
+```
+Thus, in the future we will be able to set different levels of verification for different tasks,
+for example adding a step to handle the rol of the user of something else.
+
+2. ### Command
+Previously, we implemented an abstract factory dp which was creating different `CommandFactoryes`
+which on their move were creating `Command`s on a specific request of the user.
+But now we use a javafx gui, and we will just modify our implementation to fit with the javafx buttons.
+We have our `Command` interface:
+```java
+public interface Command {
+    void execute();
+}
+```
+Now, we modify our specific commands:
+```java
+public class AddProductCommand implements Command {
+
+    private final ProductService productService;
+    private final Product product;
+
+    public AddProductCommand(ProductService productService, Product product) {
+        this.productService = productService;
+        this.product = product;
+    }
+
+    @Override
+    public void execute() {
+        productService.add(product);
+    }
+}
+```
+```java
+public class DeleteProductCommand implements Command {
+
+    private final ProductService productService;
+    private final Product deletedProduct;
+
+    public DeleteProductCommand(ProductService productService, Product product) {
+        this.productService = productService;
+        this.deletedProduct = product;
+    }
+
+    @Override
+    public void execute() {
+        productService.delete(deletedProduct.getId());
+    }
+}
+```
+```java
+public class UpdateProductCommand implements Command {
+
+    private final ProductService productService;
+    private final Product product;
+
+    public UpdateProductCommand(ProductService productService, Product product) {
+        this.productService = productService;
+        this.product = product;
+    }
+
+    @Override
+    public void execute() {
+        productService.update(product);
+    }
+}
+```
+Now when a user wants to (for example) add/edit/delete a specific products, a specific command will be executed.
+For exampe `DeleProduct` Command:
+```java
+private void handleDeleteProduct(Product product) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Product");
+        alert.setHeaderText("Delete Product");
+        alert.setContentText("Are you sure you want to delete " + product.getProductName() + "?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                Command command = new DeleteProductCommand(productService, product);
+                command.execute();
+                loadProducts();
+            } catch (Exception e) {
+                showError("Error deleting product", e.getMessage());
+            }
+        }
+    }
+```
+
+3. ### Template
+Making changes in our project, we changed the child classes of the `Service` class
+to be more dry, and we were able to do it by following the Template Design Pattern:
+This is our `Service` which is part of the Bridge Design Pattern:
 ```java
 public abstract class Service<T, ID> {
     protected IRepository<T, ID> repository;
@@ -93,12 +237,12 @@ public abstract class Service<T, ID> {
         return repository.findById(id);
     }
 
-    public void add() {
-        repository.add(null);
+    public void add(T entity) {
+        repository.add(entity);
     }
 
-    public void update(ID id) {
-        repository.update(null);
+    public void update(T entity) {
+        repository.update(entity);
     }
 
     public void delete(ID id) {
@@ -106,256 +250,53 @@ public abstract class Service<T, ID> {
     }
 }
 ```
-The repository attribute now acts as a bridge between these two layers. Now we make the `ProducService`
-and `UserService` to extend this class.
+This class not only serves as a Bridge, but also as a skeleton for our concrete 
+services: `ProductService` and `UserService`
 ```java
 public class ProductService extends Service<Product, Long>{
 
     public ProductService(IRepository<Product, Long> repository) {
         super(repository);
     }
-    //... 
-}
-```
-```java
-public class UserService extends Service<User, Long> {
-
-    public UserService(IRepository<User, Long> repository) {
-        super(repository);
-    }
-    //...
-}
-```
-After changing the implementation in our command layer, now, when for example we want to add
-a new product, the `AddProductCommand` will be initiated and will give us the opportunity to 
-execute this operation:
-```java
-public class AddProductCommand implements Command {
 
     @Override
-    public void execute() {
-        ProductService productService = new ProductService(new ProductRepository());
-        productService.add();
-    }
-}
-```
-So, in the future we can add as many entities in our db as we want, and the business logic
-and structure will be maintained the same, keeping the project flexible.
-2. ### Composite
-Since we build a software for a warehouse, at the warehouse the orders of clients are packed
-into boxes, which are packed into bigger boxes and sent to a location to be dispatched and
-send to its clients addresses. So, we have to build this functionality, adn the composite 
-pattern will help us.  
-So since an order can have multiple products, and orders from same location 
-have to be patched together (in the same truck for example), we can see a tree structure here.
-We define a interface for our component (which is order):
-```java
-public interface IOrder {
-    double getTotalCost();
-    void addProduct(Product product, int quantity);
-    void display();
-    String getOrderInfo();
-}
-```
-Now, as a leaf we have an order which can have multiple products:
-```java
-public class Order implements IOrder {
-    private final String orderId;
-    private List<OrderItem> items;
-
-    public Order(String orderId) {
-        this.orderId = orderId;
-        this.items = new ArrayList<>();
-    }
-
-    private class OrderItem {
-        Product product;
-        int quantity;
-
-        OrderItem(Product product, int quantity) {
-            this.product = product;
-            this.quantity = quantity;
-        }
-    }
-    //...addProduct(); getTotalCost(); display(); getOrderInfo();
-}
-```
-and as a composite class we have our bigger box (truck) with individual orders:
-```java
-public class CompositeOrder implements IOrder {
-    private String groupId;
-    private String groupType;
-    private List<IOrder> orders;
-
-    public CompositeOrder(String groupId, String groupType) {
-        this.groupId = groupId;
-        this.groupType = groupType;
-        this.orders = new ArrayList<>();
-    }
-
-    public void addOrder(IOrder order) {
-        orders.add(order);
-    }
-
-    public void removeOrder(IOrder order) {
-        orders.remove(order);
-    }
-    //...addProduct(); getTotalCost(); display(); getOrderInfo();
-}
-```
-Now, we can operate with orders the same way by making use of the common interface.
-```java
-@Override
-    public void execute() {
-        Product prod1 = productService.findById(1L);
-        Product prod2 = productService.findById(2L);
-
-        Order order1 = new Order("ORD-001");
-        order1.addProduct(prod1, 1);
-        order1.addProduct(prod2, 2);
-
-        Order order2 = new Order("ORD-002");
-        order2.addProduct(prod2, 3);
-
-        CompositeOrder cityOrders = new CompositeOrder("NYC-001", "CITY");
-        cityOrders.addOrder(order1);
-        cityOrders.addOrder(order2);
-
-        deliveryService.processOrder(order1);
-        deliveryService.processOrder(order2);
-        deliveryService.processOrder(cityOrders);
-    }
-```
-
-3. ### Decorator
-Now, if a client pays for the order to be delivered extra fast, or other new features our company 
-provides, we also have to handle this, but instead of creating new leafs for our `IOrder` we
-will just use the Decorator Design Pattern that will help us attach new be behaviors to our 
-already existing order.
-So our component will be the same: `IOrder`, but we will create an extra interface for our
-new behaviors:
-```java
-public interface OrderDecorator extends IOrder {
-    String getDescription();
-    double getAdditionalCost();
-}
-```
-and will create a base for our order decorators, to be able to implement the for our components
-which is `Order`:
-```java
-public abstract class BaseOrderDecorator implements OrderDecorator {
-    protected IOrder decoratedOrder;
-
-    public BaseOrderDecorator(IOrder order) {
-        this.decoratedOrder = order;
+    public List<Product> findAll(){
+        return repository.findAll();
     }
 
     @Override
-    public double getTotalCost() {
-        return decoratedOrder.getTotalCost() + getAdditionalCost();
+    public Product findById(Long id){
+        return repository.findById(id);
     }
 
     @Override
-    public void display() {
-        decoratedOrder.display();
-        System.out.println("Additional Service: " + getDescription() +
-                " (+" + getAdditionalCost() + ")");
+    public void add(Product product) {
+        product.setTotalCost(product.getQuantity() * product.getSellPrice());
+        product.setTotalRevenue((product.getQuantity() * product.getSellPrice()) - product.getTotalCost());
+        repository.add(product);
     }
 
     @Override
-    public String getOrderInfo() {
-        return decoratedOrder.getOrderInfo() + " + " + getDescription();
+    public void update(Product entity) {
+        super.update(entity);
+    }
+
+    @Override
+    public void delete(Long id) {
+        super.delete(id);
     }
 }
 ```
-Now, we can create as many concrete decorators we want, and they will implement the same interface
-as the `BaseOrderDecorator`, for example an express delivery decorator:
-```java
-public class ExpressDeliveryDecorator extends BaseOrderDecorator {
-    private static final double EXPRESS_FEE = 25.0;
-
-    public ExpressDeliveryDecorator(IOrder order) {
-        super(order);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Express Delivery";
-    }
-
-    @Override
-    public double getAdditionalCost() {
-        return EXPRESS_FEE;
-    }
-
-    @Override
-    public void addProduct(Product product, int quantity) {
-        decoratedOrder.addProduct(product, quantity);
-    }
-}
-```
-and an insurance decorator:
-```java
-public class InsuranceDecorator extends BaseOrderDecorator {
-    private static final double INSURANCE_RATE = 0.05;
-    private static final double MIN_INSURANCE_FEE = 10.0;
-
-    public InsuranceDecorator(IOrder order) {
-        super(order);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Insurance Coverage";
-    }
-
-    @Override
-    public double getAdditionalCost() {
-        double insuranceFee = decoratedOrder.getTotalCost() * INSURANCE_RATE;
-        return Math.max(Math.round(insuranceFee * 100.0)/100.0, MIN_INSURANCE_FEE);
-    }
-
-    @Override
-    public void addProduct(Product product, int quantity) {
-        decoratedOrder.addProduct(product, quantity);
-    }
-}
-```
-Thus, our code does not care either it works with initial `Order` class or the decorated one,
-since all decorator implement the same interface as the base decorator class.
-Example of its implementation:
-```java
-@Override
-    public void execute() {
-        Product prod1 = productService.findById(1L);
-        Product prod2 = productService.findById(2L);
-
-        IOrder expressOrder = new ExpressDeliveryDecorator(new Order("ORD-003"));
-        expressOrder.addProduct(prod1, 1);
-
-        IOrder insuredOrder = new InsuranceDecorator(new Order("ORD-004"));
-        insuredOrder.addProduct(prod1, 2);
-
-        IOrder complexOrder = new InsuranceDecorator(
-                new ExpressDeliveryDecorator(new Order("ORD-005"))
-        );
-        complexOrder.addProduct(prod1, 1);
-        complexOrder.addProduct(prod2, 1);
-
-        deliveryService.processOrder(expressOrder);
-        deliveryService.processOrder(insuredOrder);
-        deliveryService.processOrder(complexOrder);
-    }
-```
+In the future we can create Services for Orders or other business logic 
+and use `Service` skeleton as the template for our new classes.
 
 -----
 
 ## Conclusions / Screenshots / Results
 In conclusion, the task of this laboratory work was successfully covered, 
-implementing bridge, composite and decorator design patterns, 
-making our project more flexible, abstract and robust.
-The structural design pattern gave the opportunity to develop new features for this project,
-keeping its new structures flexible and efficient.   
+implementing new features and new design patterns.
+From the beginning till now the project had survived a lot of modifications and new features   
+becoming more and more robust, dry and flexible.
 
 <figure>
   <img src="../assets/img.png" alt="Bridge Result">

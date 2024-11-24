@@ -1,19 +1,22 @@
 package commands.product;
 
 import commands.Command;
-import repository.ProductRepository;
+import model.Product;
 import service.ProductService;
 
-import java.util.Scanner;
 
 public class DeleteProductCommand implements Command {
 
+    private final ProductService productService;
+    private final Product deletedProduct;
+
+    public DeleteProductCommand(ProductService productService, Product product) {
+        this.productService = productService;
+        this.deletedProduct = product;
+    }
+
     @Override
     public void execute() {
-        ProductService productService = new ProductService(new ProductRepository());
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the product ID: ");
-        Long id = scanner.nextLong();
-        productService.delete(id);
+        productService.delete(deletedProduct.getId());
     }
 }

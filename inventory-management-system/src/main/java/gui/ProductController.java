@@ -1,5 +1,7 @@
 package gui;
 
+import commands.Command;
+import commands.product.DeleteProductCommand;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductsController {
+public class ProductController {
 
     @FXML
     private TableView<Product> productTable;
@@ -67,7 +69,6 @@ public class ProductsController {
         costPriceColumn.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
         sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
 
-        // Setup actions column with Edit and Delete buttons
         actionsColumn.setCellFactory(param -> new TableCell<>() {
             private final Button editBtn = new Button("Edit");
             private final Button deleteBtn = new Button("Delete");
@@ -144,7 +145,8 @@ public class ProductsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                productService.delete(product.getId());
+                Command command = new DeleteProductCommand(productService, product);
+                command.execute();
                 loadProducts();
             } catch (Exception e) {
                 showError("Error deleting product", e.getMessage());
@@ -165,10 +167,8 @@ public class ProductsController {
             dialogStage.setTitle(product == null ? "Add Product" : "Edit Product");
             dialogStage.setScene(new Scene(root));
 
-            // Wait for the dialog to close
             dialogStage.showAndWait();
 
-            // Refresh the table
             loadProducts();
         } catch (IOException e) {
             showError("Error", "Could not load product dialog: " + e.getMessage());
