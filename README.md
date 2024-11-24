@@ -298,14 +298,9 @@ implementing new features and new design patterns.
 From the beginning till now the project had survived a lot of modifications and new features   
 becoming more and more robust, dry and flexible.
 
-<figure>
-  <img src="../assets/img_3.png" alt="Result Login">
-  <figcaption><small>Login</small></figcaption>
-</figure>
-
-<figure>
-  <img src="../assets/img_4.png" alt="Result Products">
-  <figcaption><small>Products</small></figcaption>
-</figure>
+<small>Result implementing Composite:</small>  
+![img.png](inventory-management-system/assets/img_3.png)  
+<small>Result implementing Decorator:</small>  
+![img.png](inventory-management-system/assets/img_4.png)  
 
 ----
