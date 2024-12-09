@@ -27,6 +27,9 @@ public class BaseController {
     Button ordersButton;
 
     @FXML
+    Button usersButton;
+
+    @FXML
     Button logoutButton;
 
     @FXML
@@ -42,6 +45,7 @@ public class BaseController {
         urls.put("Products", "/view/products.fxml");
         urls.put("Orders", "/view/orders.fxml");
         urls.put("Dashboard", "/view/dashboard.fxml");
+        urls.put("Users", "/view/users.fxml");
     }
 
     public void setUser(User user) {

@@ -104,7 +104,7 @@ public class ProductController {
             productList = FXCollections.observableArrayList(products);
             productTable.setItems(productList);
         } catch (Exception e) {
-            showError("Error loading products", e.getMessage());
+            DisplayAlert.showError("Error loading products", e.getMessage());
         }
     }
 
@@ -149,7 +149,7 @@ public class ProductController {
                 command.execute();
                 loadProducts();
             } catch (Exception e) {
-                showError("Error deleting product", e.getMessage());
+                DisplayAlert.showError("Error deleting product", e.getMessage());
             }
         }
     }
@@ -171,15 +171,7 @@ public class ProductController {
 
             loadProducts();
         } catch (IOException e) {
-            showError("Error", "Could not load product dialog: " + e.getMessage());
+            DisplayAlert.showError("Error", "Could not load product dialog: " + e.getMessage());
         }
-    }
-
-    private void showError(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }

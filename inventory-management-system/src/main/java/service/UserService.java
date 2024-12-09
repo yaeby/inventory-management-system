@@ -34,12 +34,7 @@ public class UserService extends Service<User, Long>{
 
     @Override
     public void delete(Long id) {
-        User user = repository.findById(id);
-        if (user != null) {
-            repository.delete(id);
-        } else {
-            throw new ResourceNotFoundException("User not found");
-        }
+        super.delete(id);
     }
 
     public User findByName(String username) {

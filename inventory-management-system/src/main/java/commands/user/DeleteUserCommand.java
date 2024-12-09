@@ -1,19 +1,21 @@
 package commands.user;
 
 import commands.Command;
-import repository.UserRepository;
+import model.User;
 import service.UserService;
-
-import java.util.Scanner;
 
 public class DeleteUserCommand implements Command {
 
+    private final UserService userService;
+    private final User deleteUser;
+
+    public DeleteUserCommand(UserService userService, User deleteUser) {
+        this.userService = userService;
+        this.deleteUser = deleteUser;
+    }
+
     @Override
     public void execute() {
-        UserService userService = new UserService(new UserRepository());
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the user ID: ");
-        Long userId = scanner.nextLong();
-        userService.delete(userId);
+        userService.delete(deleteUser.getId());
     }
 }

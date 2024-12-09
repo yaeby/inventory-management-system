@@ -35,9 +35,9 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="dashboardButton" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Dashboard" />
-            <Button fx:id="productsButton" layoutX="11.0" layoutY="207.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Products" />
-            <Button fx:id="ordersButton" layoutX="11.0" layoutY="244.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Orders" />
+            <Button fx:id="dashboardButton" layoutX="11.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Dashboard" />
+            <Button fx:id="productsButton" layoutX="11.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Products" />
+            <Button fx:id="ordersButton" layoutX="11.0" layoutY="250.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Orders" />
             <Button fx:id="logoutButton" layoutX="10.0" layoutY="656.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="130.0" text="Logout" AnchorPane.bottomAnchor="14.0" />
             <AnchorPane layoutX="4.0" prefHeight="137.0" prefWidth="144.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -53,6 +53,7 @@
                   </Label>
                   <Line endX="69.0" endY="-17.0" layoutX="62.0" layoutY="153.0" startX="-53.0" startY="-17.0" />
                </children></AnchorPane>
+            <Button fx:id="usersButton" layoutX="11.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Users" />
          </children>
       </AnchorPane>
    </left>
