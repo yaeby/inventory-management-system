@@ -1,6 +1,5 @@
 package service;
 
-import exceptions.ResourceNotFoundException;
 import model.User;
 import repository.IRepository;
 

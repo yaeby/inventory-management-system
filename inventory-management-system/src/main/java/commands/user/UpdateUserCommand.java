@@ -1,6 +1,7 @@
 package commands.user;
 
 import commands.Command;
+import model.User;
 import repository.UserRepository;
 import service.UserService;
 
@@ -8,12 +9,16 @@ import java.util.Scanner;
 
 public class UpdateUserCommand implements Command {
 
+    private final UserService userService;
+    private final User user;
+
+    public UpdateUserCommand(UserService userService, User user) {
+        this.userService = userService;
+        this.user = user;
+    }
+
     @Override
     public void execute() {
-        UserService userService = new UserService(new UserRepository());
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the user ID: ");
-        Long userId = scanner.nextLong();
-//        userService.update(userId);
+        userService.update(user);
     }
 }

@@ -6,13 +6,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import model.Product;
 import model.User;
 import repository.UserRepository;
 import service.UserService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +32,9 @@ public class UserController {
 
     @FXML
     private TableColumn<User, String> passwordColumn;
+
+    @FXML
+    private TableColumn<User, String> roleColumn;
 
     @FXML
     private TableColumn<User, Void> actionsColumn;
@@ -46,6 +55,7 @@ public class UserController {
     private void setupColumns() {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+        roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         actionsColumn.setCellFactory(param -> new TableCell<>() {
             private final Button editBtn = new Button("Edit");
@@ -55,7 +65,7 @@ public class UserController {
             {
                 editBtn.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());
-//                    handleEditProduct(user);
+                    handleEditUser(user);
                 });
 
                 deleteBtn.setOnAction(event -> {
@@ -95,7 +105,8 @@ public class UserController {
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                return user.getUsername().toLowerCase().contains(lowerCaseFilter);
+                return user.getUsername().toLowerCase().contains(lowerCaseFilter)
+                        || user.getRole().name().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
@@ -104,11 +115,11 @@ public class UserController {
 
     @FXML
     private void handleAddUser(){
-
+        showUserDialog(null);
     }
 
-    private void handleEditUser(){
-
+    private void handleEditUser(User user){
+        showUserDialog(user);
     }
 
     private void handleDeleteUser(User user) {
@@ -126,6 +137,27 @@ public class UserController {
             } catch (Exception e) {
                 DisplayAlert.showError("Error deleting user", e.getMessage());
             }
+        }
+    }
+
+    private void showUserDialog(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/user-dialog.fxml"));
+            Parent root = loader.load();
+
+            UserDialogController dialogController = loader.getController();
+            dialogController.setUser(user);
+            dialogController.setUserService(userService);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(user == null ? "Add User" : "Edit User");
+            dialogStage.setScene(new Scene(root));
+
+            dialogStage.showAndWait();
+
+            loadUsers();
+        } catch (IOException e) {
+            DisplayAlert.showError("Error", "Could not load user dialog: " + e.getMessage());
         }
     }
 }

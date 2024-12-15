@@ -27,7 +27,7 @@
                 <!-- Search and Add Button Section -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <TextField fx:id="searchField" prefWidth="200.0" promptText="Search profile..." />
-                    <Button fx:id="addButton" mnemonicParsing="false" text="Register New User" />
+                    <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddUser" text="Register New User" />
                 </HBox>
                 <AnchorPane VBox.vgrow="ALWAYS">
                     <children>
@@ -37,6 +37,7 @@
                             <columns>
                                 <TableColumn fx:id="usernameColumn" prefWidth="122.0" text="Username" />
                                 <TableColumn fx:id="passwordColumn" prefWidth="146.0" text="Password" />
+                        <TableColumn fx:id="roleColumn" prefWidth="146.0" text="Role" />
                                 <TableColumn fx:id="actionsColumn" prefWidth="149.0" text="Actions" />
                             </columns>
                         </TableView>

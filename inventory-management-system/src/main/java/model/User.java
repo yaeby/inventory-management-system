@@ -4,6 +4,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -29,12 +30,21 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole(){
+        return role;
+    }
+
+    public void setRole(Role role){
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

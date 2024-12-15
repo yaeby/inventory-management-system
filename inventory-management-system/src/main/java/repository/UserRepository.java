@@ -2,6 +2,7 @@ package repository;
 
 import builder.GenericBuilder;
 import database.ConnectionFactory;
+import model.Role;
 import model.User;
 
 import java.sql.Connection;
@@ -55,15 +56,17 @@ public class UserRepository implements IRepository<User, Long> {
                 .with(User::setId, resultSet.getLong("id"))
                 .with(User::setUsername, resultSet.getString("username"))
                 .with(User::setPassword, resultSet.getString("password"))
+                .with(User::setRole, Role.valueOf(resultSet.getString("role")))
                 .build();
     }
 
     @Override
     public void add(User user) {
-        String query = "INSERT INTO user (username, password) VALUES (?, ?)";
+        String query = "INSERT INTO user (username, password, role) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getRole().name());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,11 +75,12 @@ public class UserRepository implements IRepository<User, Long> {
 
     @Override
     public void update(User user) {
-        String query = "UPDATE user SET username = ?, password = ? WHERE id = ?";
+        String query = "UPDATE user SET username = ?, password = ?, role = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setLong(3, user.getId());
+            preparedStatement.setString(3, user.getRole().name());
+            preparedStatement.setLong(4, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
