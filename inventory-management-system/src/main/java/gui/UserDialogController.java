@@ -17,8 +17,6 @@ public class UserDialogController {
     @FXML
     private TextField passwordField;
     @FXML
-    private TextField roleField;
-    @FXML
     private ComboBox<Role> roleComboBox;
 
     private User user;
