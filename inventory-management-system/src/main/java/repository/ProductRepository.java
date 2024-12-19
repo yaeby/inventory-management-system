@@ -3,6 +3,7 @@ package repository;
 import builder.GenericBuilder;
 import database.ConnectionFactory;
 import model.Product;
+import service.CategoryService;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,10 +16,12 @@ import java.util.List;
 public class ProductRepository implements IRepository<Product, Long> {
 
     private final Connection connection;
+    private CategoryService categoryService;
 
     public ProductRepository() {
         ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
         connection = connectionFactory.getConnection();
+        categoryService = new CategoryService(new CategoryRepository());
     }
 
     @Override
@@ -52,7 +55,7 @@ public class ProductRepository implements IRepository<Product, Long> {
     }
 
     private Product createProduct(ResultSet resultSet) throws SQLException {
-        return GenericBuilder.of(Product::new)
+        Product product = GenericBuilder.of(Product::new)
                 .with(Product::setId, resultSet.getLong("id"))
                 .with(Product::setProductCode, resultSet.getString("product_code"))
                 .with(Product::setProductName, resultSet.getString("product_name"))
@@ -62,12 +65,15 @@ public class ProductRepository implements IRepository<Product, Long> {
                 .with(Product::setSellPrice, resultSet.getDouble("sell_price"))
                 .with(Product::setTotalCost, resultSet.getDouble("total_cost"))
                 .with(Product::setTotalRevenue, resultSet.getDouble("total_revenue"))
+                .with(Product::setCategoryId, resultSet.getLong("category_id"))
                 .build();
+        product.setCategory(categoryService.findById(product.getCategoryId()));
+        return product;
     }
 
     @Override
     public void add(Product product) {
-        String query = "INSERT INTO product (product_code, product_name, brand, quantity, cost_price, sell_price, total_cost, total_revenue) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO product (product_code, product_name, brand, quantity, cost_price, sell_price, total_cost, total_revenue, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getProductCode());
             preparedStatement.setString(2, product.getProductName());
@@ -77,6 +83,7 @@ public class ProductRepository implements IRepository<Product, Long> {
             preparedStatement.setDouble(6, product.getSellPrice());
             preparedStatement.setDouble(7, product.getTotalCost());
             preparedStatement.setDouble(8, product.getTotalRevenue());
+            preparedStatement.setObject(9, product.getCategoryId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -97,7 +104,7 @@ public class ProductRepository implements IRepository<Product, Long> {
 
     @Override
     public void update(Product product) {
-        String query = "UPDATE product SET product_name = ?, brand = ?, quantity = ?, cost_price = ?, sell_price = ?, total_cost = ?, total_revenue = ? WHERE product_code = ?";
+        String query = "UPDATE product SET product_name = ?, brand = ?, quantity = ?, cost_price = ?, sell_price = ?, total_cost = ?, total_revenue = ?, category_id = ? WHERE product_code = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setString(2, product.getBrand());
@@ -106,7 +113,8 @@ public class ProductRepository implements IRepository<Product, Long> {
             preparedStatement.setDouble(5, product.getSellPrice());
             preparedStatement.setDouble(6, product.getTotalCost());
             preparedStatement.setDouble(7, product.getTotalRevenue());
-            preparedStatement.setString(8, product.getProductCode());
+            preparedStatement.setLong(8, product.getCategoryId());
+            preparedStatement.setString(9, product.getProductCode());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -4,10 +4,14 @@ import commands.Command;
 import commands.product.AddProductCommand;
 import commands.product.UpdateProductCommand;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Category;
 import model.Product;
 import service.ProductService;
+
+import java.util.List;
 
 public class ProductDialogController {
     @FXML
@@ -22,6 +26,8 @@ public class ProductDialogController {
     private TextField costPriceField;
     @FXML
     private TextField sellPriceField;
+    @FXML
+    private ComboBox<Category> categoryComboBox;
 
     private Product product;
     private ProductService productService;
@@ -39,6 +45,10 @@ public class ProductDialogController {
         this.productService = productService;
     }
 
+    public void setCategories(List<Category> categories) {
+        categoryComboBox.getItems().addAll(categories);
+    }
+
     private void fillFields() {
         codeField.setText(product.getProductCode());
         nameField.setText(product.getProductName());
@@ -46,6 +56,7 @@ public class ProductDialogController {
         quantityField.setText(String.valueOf(product.getQuantity()));
         costPriceField.setText(String.valueOf(product.getCostPrice()));
         sellPriceField.setText(String.valueOf(product.getSellPrice()));
+        categoryComboBox.setValue(product.getCategory());
     }
 
     @FXML
@@ -75,11 +86,17 @@ public class ProductDialogController {
         product.setQuantity(Integer.parseInt(quantityField.getText()));
         product.setCostPrice(Double.parseDouble(costPriceField.getText()));
         product.setSellPrice(Double.parseDouble(sellPriceField.getText()));
+        product.setCategory(categoryComboBox.getValue());
     }
 
     private boolean validateInput() {
         if (codeField.getText().isEmpty() || nameField.getText().isEmpty()) {
             DisplayAlert.showError("Validation Error", "Code and Name are required fields");
+            return false;
+        }
+
+        if(categoryComboBox.getValue() == null){
+            DisplayAlert.showError("Validation Error", "Category is required");
             return false;
         }
 
@@ -91,7 +108,6 @@ public class ProductDialogController {
             DisplayAlert.showError("Validation Error", "Please enter valid numbers for Quantity and Prices");
             return false;
         }
-
         return true;
     }
 

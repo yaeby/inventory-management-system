@@ -15,7 +15,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import model.Product;
+import repository.CategoryRepository;
 import repository.ProductRepository;
+import service.CategoryService;
 import service.ProductService;
 
 import java.io.IOException;
@@ -23,39 +25,34 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductController {
-
     @FXML
     private TableView<Product> productTable;
-
     @FXML
     private TableColumn<Product, String> codeColumn;
-
     @FXML
     private TableColumn<Product, String> nameColumn;
-
+    @FXML
+    private TableColumn<Product, String> categoryColumn;
     @FXML
     private TableColumn<Product, String> brandColumn;
-
     @FXML
     private TableColumn<Product, Integer> quantityColumn;
-
     @FXML
     private TableColumn<Product, Double> costPriceColumn;
-
     @FXML
     private TableColumn<Product, Double> sellPriceColumn;
-
     @FXML
     private TableColumn<Product, Void> actionsColumn;
-
     @FXML
     private TextField searchField;
 
     private ProductService productService;
+    private CategoryService categoryService;
     private ObservableList<Product> productList;
 
     public void initialize() {
         productService = new ProductService(new ProductRepository());
+        categoryService = new CategoryService(new CategoryRepository());
         setupColumns();
         loadProducts();
         setupSearch();
@@ -64,6 +61,7 @@ public class ProductController {
     private void setupColumns() {
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         costPriceColumn.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
@@ -120,7 +118,8 @@ public class ProductController {
 
                 return product.getProductCode().toLowerCase().contains(lowerCaseFilter)
                         || product.getProductName().toLowerCase().contains(lowerCaseFilter)
-                        || product.getBrand().toLowerCase().contains(lowerCaseFilter);
+                        || product.getBrand().toLowerCase().contains(lowerCaseFilter)
+                        || product.getCategory().getName().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
@@ -162,6 +161,7 @@ public class ProductController {
             ProductDialogController dialogController = loader.getController();
             dialogController.setProduct(product);
             dialogController.setProductService(productService);
+            dialogController.setCategories(categoryService.findAll());
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(product == null ? "Add Product" : "Edit Product");

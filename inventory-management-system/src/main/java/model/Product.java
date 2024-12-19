@@ -10,6 +10,8 @@
         private Double sellPrice;
         private Double totalCost;
         private Double totalRevenue;
+        private Long categoryId;
+        private Category category;
 
         public Product() {
         }
@@ -84,6 +86,23 @@
 
         public void setQuantity(int quantity) {
             this.quantity = quantity;
+        }
+
+        public Long getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(Long categoryId) {
+            this.categoryId = categoryId;
+        }
+
+        public Category getCategory() {
+            return category;
+        }
+
+        public void setCategory(Category category) {
+            this.category = category;
+            this.categoryId = category.getId();
         }
 
         @Override

@@ -36,6 +36,7 @@ public class BaseController {
     private final Map<String, String> urls = new HashMap<>();
 
     public BaseController() {
+        urls.put("Categories", "/view/categories.fxml");
         urls.put("Products", "/view/products.fxml");
         urls.put("Orders", "/view/orders.fxml");
         urls.put("Dashboard", "/view/dashboard.fxml");

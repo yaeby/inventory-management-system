@@ -35,13 +35,14 @@
                   <!-- Table Section -->
                   <TableView fx:id="productTable" prefHeight="596.0" prefWidth="1028.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
-                        <TableColumn fx:id="codeColumn" prefWidth="122.0" text="Code" />
-                        <TableColumn fx:id="nameColumn" prefWidth="146.0" text="Name" />
-                        <TableColumn fx:id="brandColumn" prefWidth="154.0" text="Brand" />
-                        <TableColumn fx:id="quantityColumn" prefWidth="141.0" text="Quantity" />
-                        <TableColumn fx:id="costPriceColumn" prefWidth="145.0" text="Cost Price" />
-                        <TableColumn fx:id="sellPriceColumn" prefWidth="170.0" text="Sell Price" />
-                        <TableColumn fx:id="actionsColumn" prefWidth="149.0" text="Actions" />
+                        <TableColumn fx:id="codeColumn" prefWidth="129.0" text="Code" />
+                        <TableColumn fx:id="nameColumn" prefWidth="127.0" text="Name" />
+                        <TableColumn fx:id="categoryColumn" prefWidth="140.0" text="Category" />
+                        <TableColumn fx:id="brandColumn" prefWidth="123.0" text="Brand" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="133.0" text="Quantity" />
+                        <TableColumn fx:id="costPriceColumn" prefWidth="115.0" text="Cost Price" />
+                        <TableColumn fx:id="sellPriceColumn" prefWidth="133.0" text="Sell Price" />
+                        <TableColumn fx:id="actionsColumn" prefWidth="129.0" text="Actions" />
                      </columns>
                   </TableView>
                </children>
