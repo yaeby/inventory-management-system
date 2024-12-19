@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Role;
 import model.User;
 
 import java.io.IOException;
@@ -16,25 +17,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseController {
-
     @FXML
     Button productsButton;
-
     @FXML
     Button dashboardButton;
-
     @FXML
     Button ordersButton;
-
     @FXML
     Button usersButton;
-
     @FXML
     Button logoutButton;
-
     @FXML
     AnchorPane centerPane;
-
     @FXML
     private Label usernameLabel;
 
@@ -50,7 +44,14 @@ public class BaseController {
 
     public void setUser(User user) {
         this.currentUser = user;
+        setupButtonVisibility();
         usernameLabel.setText(user.getUsername());
+    }
+    private void setupButtonVisibility() {
+        if (currentUser != null && usersButton != null && currentUser.getRole() != Role.ADMIN) {
+            usersButton.setVisible(false);
+            usersButton.setManaged(false);
+        }
     }
 
     @FXML

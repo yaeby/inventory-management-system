@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import repository.UserRepository;
 import service.UserService;
 
-
 import java.io.IOException;
 
 public class LoginController {

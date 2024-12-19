@@ -14,7 +14,7 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
             primaryStage.setTitle("Inventory Management System");
             primaryStage.setScene(new Scene(root));
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
             primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
