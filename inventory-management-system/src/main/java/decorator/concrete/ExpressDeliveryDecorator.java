@@ -1,7 +1,7 @@
 package decorator.concrete;
 
 import decorator.BaseOrderDecorator;
-import model.IOrder;
+import model.order.IOrder;
 import model.Product;
 
 public class ExpressDeliveryDecorator extends BaseOrderDecorator {

@@ -1,8 +1,6 @@
 package gui;
 
 import builder.GenericBuilder;
-import commands.Command;
-import commands.user.DeleteUserCommand;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -93,12 +91,6 @@ public class UserController {
     }
 
     @FXML
-    private void handleAddUser(){
-        clearFields();
-        selectedUser = null;
-    }
-
-    @FXML
     private void handleSave() {
         try {
             if (selectedUser == null) {
@@ -132,8 +124,7 @@ public class UserController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
-                    Command command = new DeleteUserCommand(userService, selectedUser);
-                    command.execute();
+                    userService.delete(selectedUser.getId());
                     loadUsers();
                     clearFields();
                 } catch (Exception e) {
@@ -143,11 +134,12 @@ public class UserController {
         }
     }
 
+    @FXML
     private void clearFields() {
+        selectedUser = null;
         usernameField.clear();
         passwordField.clear();
         roleComboBox.setValue(null);
-        selectedUser = null;
         userTable.getSelectionModel().clearSelection();
     }
 

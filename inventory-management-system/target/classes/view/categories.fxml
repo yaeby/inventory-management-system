@@ -32,7 +32,6 @@
                 <!-- Search Section -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <TextField fx:id="searchField" prefWidth="200.0" promptText="Search category..." />
-                    <Button fx:id="addButton" mnemonicParsing="false" text="Add category" />
                 </HBox>
                 <AnchorPane VBox.vgrow="ALWAYS">
                     <children>

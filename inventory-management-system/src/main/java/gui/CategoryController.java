@@ -76,11 +76,6 @@ public class CategoryController {
         categoryTable.setItems(filteredData);
     }
 
-//    private void handleAdd(){
-//        selectedCategory = null;
-//        clearFields();
-//    }
-
     @FXML
     private void handleSave(){
         try{

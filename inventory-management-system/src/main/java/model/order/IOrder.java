@@ -1,4 +1,6 @@
-package model;
+package model.order;
+
+import model.Product;
 
 public interface IOrder {
     double getTotalCost();

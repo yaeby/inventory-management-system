@@ -1,6 +1,6 @@
 package service;
 
-import model.IOrder;
+import model.order.IOrder;
 
 public class DeliveryService {
     public void processOrder(IOrder order) {

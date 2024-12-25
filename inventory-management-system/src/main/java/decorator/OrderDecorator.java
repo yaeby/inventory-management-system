@@ -1,6 +1,6 @@
 package decorator;
 
-import model.IOrder;
+import model.order.IOrder;
 
 public interface OrderDecorator extends IOrder {
     String getDescription();

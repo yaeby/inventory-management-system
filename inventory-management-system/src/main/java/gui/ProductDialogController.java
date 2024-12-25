@@ -1,8 +1,5 @@
 package gui;
 
-import commands.Command;
-import commands.product.AddProductCommand;
-import commands.product.UpdateProductCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -65,13 +62,11 @@ public class ProductDialogController {
             if (validateInput()) {
                 Product updatedProduct = isNew ? new Product() : product;
                 updateProductFromFields(updatedProduct);
-                Command command;
                 if (isNew) {
-                    command = new AddProductCommand(productService, updatedProduct);
+                    productService.add(updatedProduct);
                 } else {
-                    command = new UpdateProductCommand(productService, updatedProduct);
+                    productService.update(updatedProduct);
                 }
-                command.execute();
                 closeDialog();
             }
         } catch (Exception e) {

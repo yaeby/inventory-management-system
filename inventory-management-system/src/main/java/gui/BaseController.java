@@ -18,17 +18,21 @@ import java.util.Map;
 
 public class BaseController {
     @FXML
-    Button productsButton;
+    private Button productsButton;
     @FXML
-    Button dashboardButton;
+    private Button dashboardButton;
     @FXML
-    Button ordersButton;
+    private Button ordersButton;
     @FXML
-    Button usersButton;
+    private Button usersButton;
     @FXML
-    Button logoutButton;
+    private Button logoutButton;
     @FXML
-    AnchorPane centerPane;
+    private Button customersButton;
+    @FXML
+    private Button suppliersButton;
+    @FXML
+    private AnchorPane centerPane;
     @FXML
     private Label usernameLabel;
 
@@ -36,10 +40,12 @@ public class BaseController {
     private final Map<String, String> urls = new HashMap<>();
 
     public BaseController() {
+        urls.put("Dashboard", "/view/dashboard.fxml");
         urls.put("Categories", "/view/categories.fxml");
         urls.put("Products", "/view/products.fxml");
+        urls.put("Customers", "/view/customers.fxml");
+        urls.put("Suppliers", "/view/suppliers.fxml");
         urls.put("Orders", "/view/orders.fxml");
-        urls.put("Dashboard", "/view/dashboard.fxml");
         urls.put("Users", "/view/users.fxml");
     }
 
@@ -61,16 +67,10 @@ public class BaseController {
         String btnText = btn.getText();
         String url = urls.get(btnText);
 
-        if (url == null) {
-            System.err.println("No URL found for button: " + btnText);
-            return;
-        }
-
         try {
             ctrlRightPane(url);
         } catch (IOException e) {
-            System.err.println("Error loading FXML: " + url);
-            e.printStackTrace();
+            DisplayAlert.showError("Error", "Could not load FXML: " + url);
         }
     }
 
@@ -78,19 +78,13 @@ public class BaseController {
     private void ctrlRightPane(String url) throws IOException {
         try {
             centerPane.getChildren().clear();
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
             AnchorPane newCenterPane = loader.load();
-
             newCenterPane.setPrefHeight(centerPane.getHeight());
             newCenterPane.setPrefWidth(centerPane.getWidth());
-
             centerPane.getChildren().add(newCenterPane);
         } catch (IOException e) {
-            System.err.println("Failed to load: " + url);
-            System.err.println("Attempted to load from: " + getClass().getResource(url));
-            e.printStackTrace();
-            throw e;
+            DisplayAlert.showError("Error", "Could not load FXML: " + url);;
         }
     }
 
@@ -99,17 +93,13 @@ public class BaseController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
             Scene scene = new Scene(root);
-
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
             Stage newStage = new Stage();
             newStage.setScene(scene);
-
-            // Close current stage and show new one
             currentStage.close();
             newStage.show();
         } catch (IOException e) {
-            System.err.println("Failed to load login view");
-            e.printStackTrace();
+            DisplayAlert.showError("Error", "Could not load login view");
         }
     }
 }

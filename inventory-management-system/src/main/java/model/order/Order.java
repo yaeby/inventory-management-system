@@ -1,4 +1,6 @@
-package model;
+package model.order;
+
+import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;

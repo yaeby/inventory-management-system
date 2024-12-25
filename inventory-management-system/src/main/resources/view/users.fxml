@@ -33,7 +33,6 @@
                 <!-- Search Section -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <TextField fx:id="searchField" prefWidth="200.0" promptText="Search profile..." />
-                    <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddUser" text="Register New User" />
                 </HBox>
                 <AnchorPane VBox.vgrow="ALWAYS">
                     <children>
@@ -80,6 +79,7 @@
                                                 <HBox alignment="CENTER_RIGHT" spacing="10.0">
                                                     <children>
                                                         <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                                               <Button mnemonicParsing="false" onAction="#clearFields" text="Clear" />
                                                         <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
                                                     </children>
                                                 </HBox>

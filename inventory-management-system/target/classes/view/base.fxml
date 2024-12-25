@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BaseController">
-   <top>
+    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -36,9 +36,13 @@
       <AnchorPane prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="dashboardButton" layoutX="11.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Dashboard" />
-            <Button fx:id="categoriesButton" layoutX="10.0" layoutY="211.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Categories" />
-            <Button fx:id="ordersButton" layoutX="11.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Orders" />
-            <Button fx:id="logoutButton" layoutX="10.0" layoutY="656.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="130.0" text="Logout" AnchorPane.bottomAnchor="14.0" />
+            <Button fx:id="categoriesButton" layoutX="11.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Categories" />
+            <Button fx:id="productsButton" layoutX="11.0" layoutY="250.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Products" />
+            <Button fx:id="customersButton" layoutX="11.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Customers" />
+            <Button fx:id="suppliersButton" layoutX="11.0" layoutY="330.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Suppliers" />
+            <Button fx:id="ordersButton" layoutX="11.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Orders" />
+            <Button fx:id="usersButton" layoutX="11.0" layoutY="410.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Users" />
+            <Button fx:id="logoutButton" layoutX="11.0" layoutY="656.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="130.0" text="Logout" AnchorPane.bottomAnchor="14.0" />
             <AnchorPane layoutX="4.0" prefHeight="137.0" prefWidth="144.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="33.0" layoutY="42.0" text="Welcome">
@@ -52,9 +56,8 @@
                      </font>
                   </Label>
                   <Line endX="69.0" endY="-17.0" layoutX="62.0" layoutY="153.0" startX="-53.0" startY="-17.0" />
-               </children></AnchorPane>
-            <Button fx:id="usersButton" layoutX="10.0" layoutY="329.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Users" />
-            <Button fx:id="productsButton" layoutX="10.0" layoutY="251.0" mnemonicParsing="false" onAction="#btnNavigators" prefHeight="25.0" prefWidth="130.0" text="Products" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </left>

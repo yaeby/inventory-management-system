@@ -1,8 +1,8 @@
 package commands.delivery;
 
 import commands.Command;
-import model.CompositeOrder;
-import model.Order;
+import model.order.CompositeOrder;
+import model.order.Order;
 import model.Product;
 import repository.ProductRepository;
 import service.DeliveryService;

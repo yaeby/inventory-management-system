@@ -1,6 +1,6 @@
 package decorator;
 
-import model.IOrder;
+import model.order.IOrder;
 
 public abstract class BaseOrderDecorator implements OrderDecorator {
     protected IOrder decoratedOrder;

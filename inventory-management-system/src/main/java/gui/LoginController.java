@@ -47,6 +47,8 @@ public class LoginController {
 
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 stage.setScene(new Scene(root));
+                stage.centerOnScreen();
+                stage.show();
             } else {
                 errorLabel.setText(result.message());
             }
