@@ -64,8 +64,8 @@ public class OrderItemRepository implements IRepository<OrderItem, Long> {
         String query = "INSERT INTO order_items (quantity, order_id, product_id) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, orderItem.getQuantity());
-            preparedStatement.setLong(2, orderItem.getProduct().getId());
-            preparedStatement.setLong(3, orderItem.getOrderId());
+            preparedStatement.setLong(2, orderItem.getOrderId());
+            preparedStatement.setLong(3, orderItem.getProduct().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
