@@ -1,7 +1,5 @@
 package gui;
 
-import commands.Command;
-import commands.product.DeleteProductCommand;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -144,8 +142,7 @@ public class ProductController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                Command command = new DeleteProductCommand(productService, product);
-                command.execute();
+                productService.delete(product.getId());
                 loadProducts();
             } catch (Exception e) {
                 DisplayAlert.showError("Error deleting product", e.getMessage());

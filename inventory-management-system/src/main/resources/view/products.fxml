@@ -23,16 +23,12 @@
                   <Font size="24.0" />
                </font>
             </Text>
-
-            <!-- Search and Add Button Section -->
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <TextField fx:id="searchField" prefWidth="200.0" promptText="Search products..." />
                <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddProduct" text="Add New Product" />
             </HBox>
             <AnchorPane VBox.vgrow="ALWAYS">
                <children>
-      
-                  <!-- Table Section -->
                   <TableView fx:id="productTable" prefHeight="596.0" prefWidth="1028.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
                         <TableColumn fx:id="codeColumn" prefWidth="129.0" text="Code" />

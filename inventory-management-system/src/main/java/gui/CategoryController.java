@@ -1,8 +1,6 @@
 package gui;
 
 import builder.GenericBuilder;
-import commands.Command;
-import commands.user.DeleteUserCommand;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

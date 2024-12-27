@@ -23,7 +23,7 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Management">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
                     <font>
                         <Font size="24.0" />
                     </font>

@@ -23,13 +23,12 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Suppliers Management">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Suppliers">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Text>
 
-                <!-- Search Section -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <TextField fx:id="searchField" prefWidth="200.0" promptText="Search supplier..." />
                 </HBox>
@@ -39,7 +38,6 @@
                             <items>
                                 <AnchorPane prefHeight="596.0" prefWidth="542.0">
                                     <children>
-                                        <!-- Table Section -->
                                         <TableView fx:id="supplierTable" prefHeight="596.0" prefWidth="511.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                                 <TableColumn fx:id="nameColumn" prefWidth="122.0" text="Name" />

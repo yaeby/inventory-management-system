@@ -18,19 +18,23 @@ import java.util.Map;
 
 public class BaseController {
     @FXML
-    private Button productsButton;
-    @FXML
     private Button dashboardButton;
     @FXML
-    private Button ordersButton;
+    private Button categoriesButton;
     @FXML
-    private Button usersButton;
+    private Button productsButton;
     @FXML
     private Button logoutButton;
     @FXML
     private Button customersButton;
     @FXML
     private Button suppliersButton;
+    @FXML
+    private Button ordersButton;
+    @FXML
+    private Button purchaseButton;
+    @FXML
+    private Button usersButton;
     @FXML
     private AnchorPane centerPane;
     @FXML
@@ -46,6 +50,7 @@ public class BaseController {
         urls.put("Customers", "/view/customers.fxml");
         urls.put("Suppliers", "/view/suppliers.fxml");
         urls.put("Orders", "/view/orders.fxml");
+        urls.put("Purchases", "/view/purchases.fxml");
         urls.put("Users", "/view/users.fxml");
     }
 
@@ -70,7 +75,7 @@ public class BaseController {
         try {
             ctrlRightPane(url);
         } catch (IOException e) {
-            DisplayAlert.showError("Error", "Could not load FXML: " + url);
+            DisplayAlert.showError("Error", "Error loading FXML: " + url);
         }
     }
 

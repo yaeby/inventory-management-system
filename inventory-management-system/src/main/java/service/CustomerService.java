@@ -22,6 +22,11 @@ public class CustomerService extends Service<Customer, Long>{
     }
 
     @Override
+    public Customer findByName(String name){
+        return super.findByName(name);
+    }
+
+    @Override
     public void add(Customer entity) {
         super.add(entity);
     }
