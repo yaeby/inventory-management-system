@@ -46,4 +46,8 @@ public class Supplier {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String toString(){
+        return name;
+    }
 }
