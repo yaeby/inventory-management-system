@@ -18,10 +18,12 @@
     <children>
         <GridPane hgap="10.0" vgap="10.0">
             <children>
-                <Label text="Product:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <ComboBox fx:id="productComboBox" prefWidth="150.0" promptText="select product" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <ComboBox fx:id="customerComboBox" prefWidth="150.0" promptText="select customer" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Product:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="productComboBox" prefWidth="150.0" promptText="select product" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
             <columnConstraints>
                 <ColumnConstraints />

@@ -3,9 +3,8 @@ package repository;
 import builder.GenericBuilder;
 import database.ConnectionFactory;
 import model.Order;
-import model.OrderItem;
 import service.CustomerService;
-import service.OrderItemService;
+import service.ProductService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,13 +15,13 @@ public class OrderRepository implements IRepository<Order, Long> {
 
     private final Connection connection;
     private final CustomerService customerService;
-    private final OrderItemService orderItemService;
+    private final ProductService productService;
 
     public OrderRepository() {
         ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
         connection = connectionFactory.getConnection();
         customerService = new CustomerService(new CustomerRepository());
-        orderItemService = new OrderItemService(new OrderItemRepository());
+        productService = new ProductService(new ProductRepository());
     }
 
     @Override
@@ -56,32 +55,22 @@ public class OrderRepository implements IRepository<Order, Long> {
     }
 
     private Order createOrder(ResultSet resultSet) throws SQLException {
-        Order order = GenericBuilder.of(Order::new)
+        return GenericBuilder.of(Order::new)
                 .with(Order::setId, resultSet.getLong("id"))
-                .with(Order::setOrderNumber, resultSet.getString("order_number"))
                 .with(Order::setCustomer, customerService.findById(resultSet.getLong("customer_id")))
+                .with(Order::setProduct, productService.findById(resultSet.getLong("product_id")))
+                .with(Order::setQuantity, resultSet.getInt("quantity"))
                 .build();
-
-        List<OrderItem> orderItems = orderItemService.findAll()
-                .stream()
-                .filter(orderItem -> order.getId().equals(orderItem.getOrderId()))
-                .collect(Collectors.toList());
-        order.setOrderItems(orderItems);
-        return order;
     }
 
     @Override
     public void add(Order order) {
-        String query = "INSERT INTO orders (order_number, customer_id) VALUES (?, ?)";
+        String query = "INSERT INTO orders (customer_id, product_id, quantity) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, order.getOrderNumber());
-            preparedStatement.setLong(2, order.getCustomer().getId());
+            preparedStatement.setLong(1, order.getCustomer().getId());
+            preparedStatement.setLong(2, order.getProduct().getId());
+            preparedStatement.setInt(3, order.getQuantity());
             preparedStatement.executeUpdate();
-            order.getOrderItems().forEach(orderItem -> {
-                orderItem.setOrderId(findByName(order.getOrderNumber()).getId());
-                System.out.println(orderItem);
-                orderItemService.add(orderItem);
-            });
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -89,13 +78,13 @@ public class OrderRepository implements IRepository<Order, Long> {
 
     @Override
     public void update(Order order) {
-        String query = "UPDATE orders SET order_number = ?, customer_id = ? WHERE id = ?";
+        String query = "UPDATE orders SET customer_id = ?, product_id = ?, quantity = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, order.getOrderNumber());
-            preparedStatement.setLong(2, order.getCustomer().getId());
-            preparedStatement.setLong(3, order.getId());
+            preparedStatement.setLong(1, order.getCustomer().getId());
+            preparedStatement.setLong(2, order.getProduct().getId());
+            preparedStatement.setInt(3, order.getQuantity());
+            preparedStatement.setLong(4, order.getId());
             preparedStatement.executeUpdate();
-            order.getOrderItems().forEach(orderItemService::add);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -105,8 +94,6 @@ public class OrderRepository implements IRepository<Order, Long> {
     public void delete(Long id) {
         String query = "DELETE FROM orders WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            findById(id).getOrderItems().forEach(orderItem -> {orderItemService.delete(orderItem.getId());});
-
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -115,10 +102,10 @@ public class OrderRepository implements IRepository<Order, Long> {
     }
 
     @Override
-    public Order findByName(String name) {
-        String query = "SELECT * FROM orders WHERE order_number = ?";
+    public Order findByName(String productName) {
+        String query = "SELECT * FROM orders WHERE product_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setString(1, name);
+            preparedStatement.setLong(1, productService.findByName(productName).getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return createOrder(resultSet);

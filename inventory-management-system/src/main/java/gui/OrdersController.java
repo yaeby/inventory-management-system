@@ -1,6 +1,5 @@
 package gui;
 
-import builder.GenericBuilder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,16 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Customer;
 import model.Order;
-import model.OrderItem;
 import repository.CustomerRepository;
 import repository.OrderRepository;
 import service.CustomerService;
 import service.OrderService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,25 +25,26 @@ public class OrdersController {
     @FXML
     private TableView<Order> orderTable;
     @FXML
-    private TableColumn<Order, String> orderColumn;
-    @FXML
     private TableColumn<Order, String> customerColumn;
     @FXML
-    private TextField orderField;
+    private TableColumn<Order, String> productCodeColumn;
     @FXML
-    private ComboBox<Customer> customerComboBox;
+    private TableColumn<Order, String> productNameColumn;
     @FXML
-    private TableView<OrderItem> productsTable;
+    private TableColumn<Order, String> quantityColumn;
     @FXML
-    private TableColumn<OrderItem, String> productNameColumn;
+    private Label customerLabel;
     @FXML
-    private TableColumn<OrderItem, Integer> quantityColumn;
+    private Label productCodeLabel;
+    @FXML
+    private Label productNameLabel;
+    @FXML
+    private Label quantityLabel;
     @FXML
     private TextField searchField;
     
     private OrderService orderService;
     private ObservableList<Order> orderList;
-    private ObservableList<OrderItem> orderItemsList = FXCollections.observableArrayList();
     private Order selectedOrder;
 
     public void initialize() {
@@ -57,13 +54,16 @@ public class OrdersController {
         loadOrders();
         setupSearch();
         setupTableSelection();
-        customerComboBox.getItems().addAll(customerService.findAll());
-        setupOrderItemsColumns();
     }
 
-    private void setupColumns(){
-        orderColumn.setCellValueFactory(new PropertyValueFactory<>("orderNumber"));
-        customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+    private void setupColumns() {
+        customerColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getCustomer().getName()));
+        productCodeColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getProduct().getProductCode()));
+        productNameColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getProduct().getProductName()));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
     private void loadOrders(){
@@ -80,10 +80,10 @@ public class OrdersController {
         orderTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newSelection) -> {
             if (newSelection != null) {
                 selectedOrder = newSelection;
-                orderField.setText(newSelection.getOrderNumber());
-                customerComboBox.setValue(newSelection.getCustomer());
-                orderItemsList = FXCollections.observableArrayList(selectedOrder.getOrderItems());
-                productsTable.setItems(orderItemsList);
+                customerLabel.setText(selectedOrder.getCustomer().getName());
+                productCodeLabel.setText(selectedOrder.getProduct().getProductCode());
+                productNameLabel.setText(selectedOrder.getProduct().getProductName());
+                quantityLabel.setText(String.valueOf(selectedOrder.getQuantity()));
             }
         });
     }
@@ -91,41 +91,17 @@ public class OrdersController {
     private void setupSearch(){
         FilteredList<Order> filteredData = new FilteredList<>(orderList, p -> true);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(order -> order.getOrderNumber().toLowerCase().contains(newValue.toLowerCase()));
+            filteredData.setPredicate(order -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return order.getProduct().getProductCode().toLowerCase().contains(lowerCaseFilter)
+                        || order.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)
+                        || order.getCustomer().getName().toLowerCase().contains(lowerCaseFilter);
+            });
         });
-
         orderTable.setItems(filteredData);
-    }
-
-    private void setupOrderItemsColumns() {
-        productNameColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getProduct().getProductName()));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-    }
-
-    @FXML
-    private void handleSave(){
-        try{
-            if(selectedOrder == null){
-                Order order = GenericBuilder.of(Order::new)
-                        .with(Order::setOrderNumber, orderField.getText())
-                        .with(Order::setCustomer, customerComboBox.getValue())
-                        .with(Order::setOrderItems, new ArrayList<>(orderItemsList))
-                        .build();
-                orderService.add(order);
-            } else {
-                selectedOrder.setOrderNumber(orderField.getText());
-                selectedOrder.setCustomer(customerComboBox.getValue());
-                List<OrderItem> orderItems = new ArrayList<>(orderItemsList);
-                orderItems.forEach(item -> item.setOrderId(selectedOrder.getId()));
-                selectedOrder.setOrderItems(orderItems);
-                orderService.update(selectedOrder);
-            }
-            loadOrders();
-            clearFields();
-        } catch (Exception e){
-            DisplayAlert.showError("Error saving order", "Could not save order. " + e.getMessage());
-        }
     }
 
     @FXML
@@ -134,7 +110,7 @@ public class OrdersController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Order");
             alert.setHeaderText("Delete Order");
-            alert.setContentText("Are you sure you want to delete " + selectedOrder.getOrderNumber() + "?");
+            alert.setContentText("Deleting this order will not cancel it");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -152,9 +128,10 @@ public class OrdersController {
     @FXML
     private void clearFields(){
         selectedOrder = null;
-        orderField.clear();
-        customerComboBox.setValue(null);
-        orderItemsList.clear();
+        customerLabel.setText("");
+        productCodeLabel.setText("");
+        productNameLabel.setText("");
+        quantityLabel.setText("");
         orderTable.getSelectionModel().clearSelection();
     }
 
@@ -164,11 +141,11 @@ public class OrdersController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/order-dialog.fxml"));
             Parent root = loader.load();
 
-            OrderDialogController controller = loader.getController();
-            controller.setOrderController(this, orderItemsList);
+            OrderDialogController dialogController = loader.getController();
+            dialogController.setOrderService(orderService);
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Add Product");
+            dialogStage.setTitle("Create Order");
             dialogStage.setScene(new Scene(root));
             dialogStage.showAndWait();
 

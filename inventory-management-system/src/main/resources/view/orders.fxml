@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -32,17 +31,20 @@
 
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <TextField fx:id="searchField" prefWidth="200.0" promptText="Search order..." />
+               <Button onAction="#handleAddProduct" text="Create Order" />
             </HBox>
             <AnchorPane VBox.vgrow="ALWAYS">
                <children>
-                  <SplitPane dividerPositions="0.4795719844357977" prefHeight="598.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.5" prefHeight="598.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <AnchorPane prefHeight="596.0" prefWidth="542.0">
                            <children>
                               <TableView fx:id="orderTable" prefHeight="596.0" prefWidth="511.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                    <TableColumn fx:id="orderColumn" prefWidth="122.0" text="Order" />
                                     <TableColumn fx:id="customerColumn" prefWidth="146.0" text="Customer" />
+                                    <TableColumn fx:id="productCodeColumn" prefWidth="122.0" text="Code" />
+                                    <TableColumn fx:id="productNameColumn" prefWidth="122.0" text="Name" />
+                                    <TableColumn fx:id="quantityColumn" prefWidth="146.0" text="Quantity" />
                                  </columns>
                               </TableView>
                            </children>
@@ -54,37 +56,30 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                                  <children>
-                                    <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                                    <GridPane hgap="20.0" vgap="10.0" VBox.vgrow="ALWAYS">
                                        <columnConstraints>
-                                          <ColumnConstraints percentWidth="30" />
-                                          <ColumnConstraints percentWidth="70" />
+                                          <ColumnConstraints minWidth="100.0" halignment="RIGHT" />
+                                          <ColumnConstraints minWidth="200.0" halignment="LEFT" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints minHeight="30.0" prefHeight="40.0" />
-                                          <RowConstraints minHeight="30.0" prefHeight="40.0" />
-                                          <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="30.0" prefHeight="40.0" />
+                                          <RowConstraints minHeight="30.0" />
+                                          <RowConstraints minHeight="30.0" />
+                                          <RowConstraints minHeight="30.0" />
+                                          <RowConstraints minHeight="30.0" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Order:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                          <TextField fx:id="orderField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                          <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                          <ComboBox fx:id="customerComboBox" prefWidth="150.0" promptText="Select customer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label text="Products:" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <TableView fx:id="productsTable" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                                             <columns>
-                                                <TableColumn fx:id="productNameColumn" prefWidth="150.0" text="Product" />
-                                                <TableColumn fx:id="quantityColumn" prefWidth="100.0" text="Quantity" />
-                                             </columns>
-                                          </TableView>
-                                          <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <Button onAction="#handleAddProduct" text="Add Product" />
-                                          </HBox>
+                                          <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                          <Label fx:id="customerLabel" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                          <Label text="Code:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                          <Label fx:id="productCodeLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Product:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                          <Label fx:id="productNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                          <Label fx:id="quantityLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                        </children>
                                     </GridPane>
                                     <HBox alignment="CENTER_RIGHT" spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
                                           <Button mnemonicParsing="false" onAction="#clearFields" text="Clear" />
                                           <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
                                        </children>

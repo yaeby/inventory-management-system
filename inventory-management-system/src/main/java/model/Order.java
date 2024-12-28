@@ -1,12 +1,10 @@
 package model;
 
-import java.util.List;
-
-public class Order implements IOrder {
+public class Order {
     private Long id;
-    private String orderNumber;
     private Customer customer;
-    private List<OrderItem> orderItems;
+    private Product product;
+    private int quantity;
 
     public Long getId() {
         return id;
@@ -14,14 +12,6 @@ public class Order implements IOrder {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public Customer getCustomer() {
@@ -32,16 +22,19 @@ public class Order implements IOrder {
         this.customer = customer;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    @Override
-    public double getTotalCost() {
-        return orderItems.stream().mapToDouble(OrderItem::getTotalCost).sum();
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
