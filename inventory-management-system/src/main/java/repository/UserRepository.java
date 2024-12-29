@@ -5,10 +5,7 @@ import database.ConnectionFactory;
 import model.Role;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,5 +108,19 @@ public class UserRepository implements IRepository<User, Long> {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public int getTotalCount() {
+        String query = "SELECT COUNT(*) AS total FROM user";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }

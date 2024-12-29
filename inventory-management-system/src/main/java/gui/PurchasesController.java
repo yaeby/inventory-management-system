@@ -1,16 +1,17 @@
 package gui;
 
-import builder.GenericBuilder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Product;
+import javafx.stage.Stage;
 import model.Purchase;
-import model.Supplier;
 import repository.ProductRepository;
 import repository.PurchaseRepository;
 import repository.SupplierRepository;
@@ -18,6 +19,7 @@ import service.ProductService;
 import service.PurchaseService;
 import service.SupplierService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,28 +35,27 @@ public class PurchasesController {
     @FXML
     private TableColumn<Purchase, String> supplierColumn;
     @FXML
-    private ComboBox<Product> productComboBox;
-    @FXML 
-    private TextField quantityTextField;
+    private Label productCodeLabel;
     @FXML
-    private ComboBox<Supplier> supplierComboBox;
+    private Label productNameLabel;
+    @FXML
+    private Label quantityLabel;
+    @FXML
+    private Label supplierLabel;
     @FXML
     private TextField searchField;
-    
+
     private PurchaseService purchaseService;
     private ObservableList<Purchase> purchaseList;
     private Purchase selectedPurchase;
     
     public void initialize() {
         purchaseService = new PurchaseService(new PurchaseRepository());
-        ProductService productService = new ProductService(new ProductRepository());
         SupplierService supplierService = new SupplierService(new SupplierRepository());
         setupColumns();
         loadPurchases();
         setupSearch();
         setupTableSelection();
-        productComboBox.getItems().addAll(productService.findAll());
-        supplierComboBox.getItems().addAll(supplierService.findAll());
     }
 
     private void setupColumns() {
@@ -84,9 +85,10 @@ public class PurchasesController {
         purchasesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedPurchase = newSelection;
-                productComboBox.setValue(newSelection.getProduct());
-                quantityTextField.setText(Integer.toString(newSelection.getQuantity()));
-                supplierComboBox.setValue(newSelection.getSupplier());
+                supplierLabel.setText(selectedPurchase.getSupplier().getName());
+                productCodeLabel.setText(selectedPurchase.getProduct().getProductCode());
+                productNameLabel.setText(selectedPurchase.getProduct().getProductName());
+                quantityLabel.setText(String.valueOf(selectedPurchase.getQuantity()));
             }
         });
     }
@@ -109,25 +111,22 @@ public class PurchasesController {
     }
 
     @FXML
-    private void handleSave() {
+    private void handleCreatePurchase(){
         try {
-            if (selectedPurchase == null) {
-                Purchase newPurchase = GenericBuilder.of(Purchase::new)
-                        .with(Purchase::setProduct, productComboBox.getValue())
-                        .with(Purchase::setQuantity, Integer.parseInt(quantityTextField.getText()))
-                        .with(Purchase::setSupplier, supplierComboBox.getValue())
-                        .build();
-                purchaseService.add(newPurchase);
-            } else {
-                selectedPurchase.setProduct(productComboBox.getValue());
-                selectedPurchase.setQuantity(Integer.parseInt(quantityTextField.getText()));
-                selectedPurchase.setSupplier(supplierComboBox.getValue());
-                purchaseService.update(selectedPurchase);
-            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/purchase-dialog.fxml"));
+            Parent root = loader.load();
+
+            PurchaseDialogController dialogController = loader.getController();
+            dialogController.setPurchaseService(purchaseService);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Supply products");
+            dialogStage.setScene(new Scene(root));
+            dialogStage.showAndWait();
+
             loadPurchases();
-            clearFields();
-        } catch (Exception e) {
-            DisplayAlert.showError("Error", "Could not save Purchase: " + e.getMessage());
+        } catch (IOException e) {
+            DisplayAlert.showError("Error", "Could not load purchase dialog: " + e.getMessage());
         }
     }
 
@@ -155,8 +154,10 @@ public class PurchasesController {
     @FXML
     private void clearFields() {
         selectedPurchase = null;
-        productComboBox.setValue(null);
-        quantityTextField.setText("");
-        supplierComboBox.setValue(null);
+        productCodeLabel.setText("");
+        productNameLabel.setText("");
+        quantityLabel.setText("");
+        supplierLabel.setText("");
+        purchasesTable.getSelectionModel().clearSelection();
     }
 }

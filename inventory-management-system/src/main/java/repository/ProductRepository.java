@@ -123,7 +123,7 @@ public class ProductRepository implements IRepository<Product, Long> {
 
     @Override
     public Product findByName(String name) {
-        String query = "Select * FROM product WHERE product_name = ?";
+        String query = "Select * FROM product WHERE product_code = ?";
         try(PreparedStatement preparedStatement= connection.prepareStatement(query)){
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -134,6 +134,47 @@ public class ProductRepository implements IRepository<Product, Long> {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public int getTotalCount() {
+        String query = "SELECT COUNT(*) AS total FROM product";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    public int getTotalCountByCategory(Long categoryId) {
+        String query = "SELECT COUNT(*) AS total FROM product WHERE category_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, categoryId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    public int getLowStockCount() {
+        String query = "SELECT COUNT(*) AS total FROM product WHERE quantity <= 20";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }
 

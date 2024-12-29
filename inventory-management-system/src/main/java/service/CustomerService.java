@@ -40,4 +40,9 @@ public class CustomerService extends Service<Customer, Long>{
     public void delete(Long aLong) {
         super.delete(aLong);
     }
+
+    @Override
+    public int getTotalCount() {
+        return super.getTotalCount();
+    }
 }

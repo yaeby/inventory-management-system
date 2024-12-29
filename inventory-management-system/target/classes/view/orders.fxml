@@ -31,20 +31,20 @@
 
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <TextField fx:id="searchField" prefWidth="200.0" promptText="Search order..." />
-               <Button onAction="#handleAddProduct" text="Create Order" />
+               <Button onAction="#handleCreateOrder" text="Create Order" />
             </HBox>
             <AnchorPane VBox.vgrow="ALWAYS">
                <children>
-                  <SplitPane dividerPositions="0.5" prefHeight="598.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.7" prefHeight="598.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <AnchorPane prefHeight="596.0" prefWidth="542.0">
                            <children>
                               <TableView fx:id="orderTable" prefHeight="596.0" prefWidth="511.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                    <TableColumn fx:id="customerColumn" prefWidth="146.0" text="Customer" />
-                                    <TableColumn fx:id="productCodeColumn" prefWidth="122.0" text="Code" />
-                                    <TableColumn fx:id="productNameColumn" prefWidth="122.0" text="Name" />
-                                    <TableColumn fx:id="quantityColumn" prefWidth="146.0" text="Quantity" />
+                                    <TableColumn fx:id="customerColumn" prefWidth="150.0" text="Customer" />
+                                    <TableColumn fx:id="productCodeColumn" prefWidth="150.0" text="Code" />
+                                    <TableColumn fx:id="productNameColumn" prefWidth="150.0" text="Name" />
+                                    <TableColumn fx:id="quantityColumn" prefWidth="150.0" text="Quantity" />
                                  </columns>
                               </TableView>
                            </children>
@@ -56,16 +56,16 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                                  <children>
-                                    <GridPane hgap="20.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                                    <GridPane hgap="10.0" vgap="10.0">
                                        <columnConstraints>
-                                          <ColumnConstraints minWidth="100.0" halignment="RIGHT" />
-                                          <ColumnConstraints minWidth="200.0" halignment="LEFT" />
+                                          <ColumnConstraints minWidth="30.0" />
+                                          <ColumnConstraints minWidth="70.0" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints minHeight="30.0" />
-                                          <RowConstraints minHeight="30.0" />
-                                          <RowConstraints minHeight="30.0" />
-                                          <RowConstraints minHeight="30.0" />
+                                          <RowConstraints minHeight="30.0" prefHeight="40.0"/>
+                                          <RowConstraints minHeight="30.0" prefHeight="40.0"/>
+                                          <RowConstraints minHeight="30.0" prefHeight="40.0"/>
+                                          <RowConstraints minHeight="30.0" prefHeight="40.0"/>
                                        </rowConstraints>
                                        <children>
                                           <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="0" />

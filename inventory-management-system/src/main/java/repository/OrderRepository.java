@@ -60,16 +60,18 @@ public class OrderRepository implements IRepository<Order, Long> {
                 .with(Order::setCustomer, customerService.findById(resultSet.getLong("customer_id")))
                 .with(Order::setProduct, productService.findById(resultSet.getLong("product_id")))
                 .with(Order::setQuantity, resultSet.getInt("quantity"))
+                .with(Order::setOrderDate, resultSet.getTimestamp("order_date").toLocalDateTime())
                 .build();
     }
 
     @Override
     public void add(Order order) {
-        String query = "INSERT INTO orders (customer_id, product_id, quantity) VALUES (?, ?, ?)";
+        String query = "INSERT INTO orders (customer_id, product_id, quantity, order_date) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, order.getCustomer().getId());
             preparedStatement.setLong(2, order.getProduct().getId());
             preparedStatement.setInt(3, order.getQuantity());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(order.getOrderDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -78,12 +80,13 @@ public class OrderRepository implements IRepository<Order, Long> {
 
     @Override
     public void update(Order order) {
-        String query = "UPDATE orders SET customer_id = ?, product_id = ?, quantity = ? WHERE id = ?";
+        String query = "UPDATE orders SET customer_id = ?, product_id = ?, quantity = ?, order_date = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, order.getCustomer().getId());
             preparedStatement.setLong(2, order.getProduct().getId());
             preparedStatement.setInt(3, order.getQuantity());
-            preparedStatement.setLong(4, order.getId());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(order.getOrderDate()));
+            preparedStatement.setLong(5, order.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -114,5 +117,19 @@ public class OrderRepository implements IRepository<Order, Long> {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public int getTotalCount() {
+        String query = "SELECT COUNT(*) AS total FROM orders";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }

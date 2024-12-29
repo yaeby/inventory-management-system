@@ -110,4 +110,18 @@ public class CustomerRepository implements IRepository<Customer, Long> {
         }
         return null;
     }
+
+    @Override
+    public int getTotalCount() {
+        String query = "SELECT COUNT(*) AS total FROM customer";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 }

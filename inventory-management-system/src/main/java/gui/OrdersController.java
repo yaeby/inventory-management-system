@@ -136,7 +136,7 @@ public class OrdersController {
     }
 
     @FXML
-    private void handleAddProduct(){
+    private void handleCreateOrder(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/order-dialog.fxml"));
             Parent root = loader.load();

@@ -28,8 +28,6 @@
                         <Font size="24.0" />
                     </font>
                 </Text>
-
-                <!-- Search Section -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <TextField fx:id="searchField" prefWidth="200.0" promptText="Search customer..." />
                 </HBox>
@@ -39,7 +37,6 @@
                             <items>
                                 <AnchorPane prefHeight="596.0" prefWidth="542.0">
                                     <children>
-                                        <!-- Table Section -->
                                         <TableView fx:id="customerTable" prefHeight="596.0" prefWidth="511.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                                 <TableColumn fx:id="nameColumn" prefWidth="122.0" text="Name" />
@@ -63,7 +60,6 @@
                                                         <ColumnConstraints percentWidth="70" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight="30.0" prefHeight="40.0" />
                                                         <RowConstraints minHeight="30.0" prefHeight="40.0" />
                                                         <RowConstraints minHeight="30.0" prefHeight="40.0" />
                                                         <RowConstraints minHeight="30.0" prefHeight="40.0" />

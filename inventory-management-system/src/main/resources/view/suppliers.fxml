@@ -65,7 +65,6 @@
                                                         <RowConstraints minHeight="30.0" prefHeight="40.0" />
                                                         <RowConstraints minHeight="30.0" prefHeight="40.0" />
                                                         <RowConstraints minHeight="30.0" prefHeight="40.0" />
-                                                        <RowConstraints minHeight="30.0" prefHeight="40.0" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />

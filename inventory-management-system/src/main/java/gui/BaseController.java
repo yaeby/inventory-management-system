@@ -3,6 +3,7 @@ package gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,26 +14,14 @@ import model.Role;
 import model.User;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class BaseController {
     @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button categoriesButton;
-    @FXML
-    private Button productsButton;
-    @FXML
     private Button logoutButton;
-    @FXML
-    private Button customersButton;
-    @FXML
-    private Button suppliersButton;
-    @FXML
-    private Button ordersButton;
-    @FXML
-    private Button purchaseButton;
     @FXML
     private Button usersButton;
     @FXML
@@ -41,9 +30,10 @@ public class BaseController {
     private Label usernameLabel;
 
     private User currentUser;
-    private final Map<String, String> urls = new HashMap<>();
+    private final Map<String, String> urls;
 
     public BaseController() {
+        urls = new HashMap<>();
         urls.put("Dashboard", "/view/dashboard.fxml");
         urls.put("Categories", "/view/categories.fxml");
         urls.put("Products", "/view/products.fxml");

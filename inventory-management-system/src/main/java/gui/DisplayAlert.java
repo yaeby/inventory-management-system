@@ -13,9 +13,10 @@ public class DisplayAlert {
     }
 
     public static void showWarning(String title, String action) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
-        alert.setHeaderText(title);
+        alert.setHeaderText(null);
         alert.setContentText(action);
+        alert.showAndWait();
     }
 }

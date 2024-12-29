@@ -32,4 +32,6 @@ public abstract class Service<T, ID> {
     public void delete(ID id) {
         repository.delete(id);
     }
+
+    public int getTotalCount() {return repository.getTotalCount();}
 }

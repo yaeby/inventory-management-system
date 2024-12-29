@@ -44,6 +44,7 @@ public class PurchaseRepository implements IRepository<Purchase, Long> {
                 .with(Purchase::setSupplier, supplierService.findById(resultSet.getLong("supplier_id")))
                 .with(Purchase::setProduct, productService.findById(resultSet.getLong("product_id")))
                 .with(Purchase::setQuantity, resultSet.getInt("quantity"))
+                .with(Purchase::setPurchaseDate, resultSet.getTimestamp("purchase_date").toLocalDateTime())
                 .build();
     }
 
@@ -64,11 +65,12 @@ public class PurchaseRepository implements IRepository<Purchase, Long> {
 
     @Override
     public void add(Purchase purchase) {
-        String query = "INSERT INTO purchase (supplier_id, product_id, quantity) VALUES (?, ?, ?)";
+        String query = "INSERT INTO purchase (supplier_id, product_id, quantity, purchase_date) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, purchase.getSupplier().getId());
             preparedStatement.setLong(2, purchase.getProduct().getId());
             preparedStatement.setInt(3, purchase.getQuantity());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(purchase.getPurchaseDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -77,12 +79,13 @@ public class PurchaseRepository implements IRepository<Purchase, Long> {
 
     @Override
     public void update(Purchase purchase) {
-        String query = "UPDATE purchase SET supplier_id = ?, product_id = ?, quantity = ? WHERE id = ?";
+        String query = "UPDATE purchase SET supplier_id = ?, product_id = ?, quantity = ?, purchase_date = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, purchase.getSupplier().getId());
             preparedStatement.setLong(2, purchase.getProduct().getId());
             preparedStatement.setInt(3, purchase.getQuantity());
-            preparedStatement.setLong(4, purchase.getId());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(purchase.getPurchaseDate()));
+            preparedStatement.setLong(5, purchase.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,5 +116,19 @@ public class PurchaseRepository implements IRepository<Purchase, Long> {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public int getTotalCount() {
+        String query = "SELECT COUNT(*) AS total FROM purchase";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }

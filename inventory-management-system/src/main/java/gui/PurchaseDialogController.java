@@ -5,36 +5,35 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Customer;
-import model.Order;
+import model.Purchase;
 import model.Product;
-import repository.CustomerRepository;
+import model.Supplier;
 import repository.ProductRepository;
-import service.CustomerService;
-import service.OrderService;
-import service.ProductService;
+import repository.SupplierRepository;
+import service.*;
 
 import java.time.LocalDateTime;
 
-public class OrderDialogController {
-    @FXML
-    private ComboBox<Customer> customerComboBox;
+public class PurchaseDialogController {
     @FXML
     private ComboBox<Product> productComboBox;
     @FXML
     private TextField quantityField;
-    private OrderService orderService;
+    @FXML
+    private ComboBox<Supplier> supplierComboBox;
+    
+    private PurchaseService purchaseService;
     private ProductService productService;
 
     public void initialize() {
         productService = new ProductService(new ProductRepository());
-        CustomerService customerService = new CustomerService(new CustomerRepository());
-        customerComboBox.getItems().addAll(customerService.findAll());
+        SupplierService supplierService = new SupplierService(new SupplierRepository());
+        supplierComboBox.getItems().addAll(supplierService.findAll());
         productComboBox.getItems().addAll(productService.findAll());
     }
 
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
+    public void setPurchaseService(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
     }
 
     @FXML
@@ -45,23 +44,23 @@ public class OrderDialogController {
                 int quantity = Integer.parseInt(quantityField.getText());
                 product.setQuantity(product.getQuantity() - quantity);
                 productService.update(product);
-                Order order = GenericBuilder.of(Order::new)
-                        .with(Order::setCustomer, customerComboBox.getValue())
-                        .with(Order::setProduct, product)
-                        .with(Order::setQuantity, quantity)
-                        .with(Order::setOrderDate, LocalDateTime.now())
+                Purchase purchase = GenericBuilder.of(Purchase::new)
+                        .with(Purchase::setSupplier, supplierComboBox.getValue())
+                        .with(Purchase::setProduct, product)
+                        .with(Purchase::setQuantity, quantity)
+                        .with(Purchase::setPurchaseDate, LocalDateTime.now())
                         .build();
-                orderService.add(order);
+                purchaseService.add(purchase);
             }
             closeDialog();
         } catch (Exception e) {
-            DisplayAlert.showError("Error adding product", e.getMessage());
+            DisplayAlert.showError("Error making purchase", e.getMessage());
         }
     }
 
     private boolean validateInput(){
-        if(customerComboBox.getValue() == null) {
-            DisplayAlert.showError("Validation Error", "Please select a customer");
+        if(supplierComboBox.getValue() == null) {
+            DisplayAlert.showError("Validation Error", "Please select a supplier");
             return false;
         }
         if (productComboBox.getValue() == null) {
@@ -93,8 +92,7 @@ public class OrderDialogController {
     }
 
     private void closeDialog(){
-        Stage stage = (Stage) customerComboBox.getScene().getWindow();
+        Stage stage = (Stage) supplierComboBox.getScene().getWindow();
         stage.close();
     }
-
 }

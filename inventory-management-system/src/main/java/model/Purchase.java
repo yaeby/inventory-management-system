@@ -1,10 +1,13 @@
 package model;
 
+import java.time.LocalDateTime;
+
 public class Purchase {
     private Long id;
     private Supplier supplier;
     private Product product;
     private int quantity;
+    private LocalDateTime purchaseDate;
 
     public Long getId() {
         return id;
@@ -36,5 +39,13 @@ public class Purchase {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public LocalDateTime getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 }

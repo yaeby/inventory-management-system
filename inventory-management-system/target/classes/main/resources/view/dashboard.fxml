@@ -1,11 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="695.0" prefWidth="1050.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.DashboardController"
+            style="-fx-background-color: #f5f5f5;">
    <children>
-      <Label alignment="CENTER" layoutX="257.0" layoutY="184.0" prefHeight="32.0" prefWidth="86.0" text="DashBoard" AnchorPane.bottomAnchor="184.0" AnchorPane.leftAnchor="257.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="184.0" />
+      <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="20.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+               </padding>
+
+               <!-- Dashboard Header -->
+               <HBox alignment="CENTER_LEFT" spacing="20">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard" style="-fx-fill: #2c3e50;">
+                     <font>
+                        <Font name="System Bold" size="24.0"/>
+                     </font>
+                  </Text>
+               </HBox>
+
+               <!-- Quick Stats Cards -->
+               <GridPane hgap="20" vgap="20">
+                  <columnConstraints>
+                     <ColumnConstraints percentWidth="25"/>
+                     <ColumnConstraints percentWidth="25"/>
+                     <ColumnConstraints percentWidth="25"/>
+                     <ColumnConstraints percentWidth="25"/>
+                  </columnConstraints>
+
+                  <!-- Total Products Card -->
+                  <VBox styleClass="stat-card" GridPane.columnIndex="0"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                     </padding>
+                     <Label text="Total Products" style="-fx-text-fill: #7f8c8d;"/>
+                     <Label fx:id="totalProductsLabel" text="0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                  </VBox>
+
+                  <!-- Low Stock Products -->
+                  <VBox styleClass="stat-card" GridPane.columnIndex="1"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                     </padding>
+                     <Label text="Low Stock Items" style="-fx-text-fill: #7f8c8d;"/>
+                     <Label fx:id="lowStockLabel" text="0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
+                  </VBox>
+
+                  <!-- Total Orders -->
+                  <VBox styleClass="stat-card" GridPane.columnIndex="2"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                     </padding>
+                     <Label text="Total Orders" style="-fx-text-fill: #7f8c8d;"/>
+                     <Label fx:id="totalOrdersLabel" text="0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                  </VBox>
+
+                  <!-- Total Revenue -->
+                  <VBox styleClass="stat-card" GridPane.columnIndex="3"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                     </padding>
+                     <Label text="Total Revenue" style="-fx-text-fill: #7f8c8d;"/>
+                     <Label fx:id="totalRevenueLabel" text="aaa" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                  </VBox>
+               </GridPane>
+
+               <!-- Charts Section -->
+               <HBox spacing="20">
+                  <!-- Product Categories Distribution -->
+                  <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                     </padding>
+                     <Label text="Product Categories Distribution" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                     <PieChart fx:id="categoriesChart" legendVisible="true" labelsVisible="true"/>
+                  </VBox>
+
+                  <!-- Monthly Sales Chart -->
+                  <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                     </padding>
+                     <Label text="Monthly Sales" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                     <BarChart fx:id="salesChart">
+                        <xAxis>
+                           <CategoryAxis label="Month"/>
+                        </xAxis>
+                        <yAxis>
+                           <NumberAxis label="Sales ($)"/>
+                        </yAxis>
+                     </BarChart>
+                  </VBox>
+               </HBox>
+
+               <!-- Recent Activity Section -->
+               <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+                  <padding>
+                     <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="Recent Activity" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                  <VBox fx:id="recentActivityContainer" spacing="10"/>
+               </VBox>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
