@@ -12,8 +12,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+            Scene scene = new Scene(root);
             primaryStage.setTitle("Inventory Management System");
-            primaryStage.setScene(new Scene(root));
+            primaryStage.setScene(scene);
             primaryStage.setResizable(true);
             primaryStage.show();
         } catch (IOException e) {

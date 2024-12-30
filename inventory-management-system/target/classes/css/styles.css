@@ -1,0 +1,116 @@
+/* styles.css */
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Sidebar styling */
+.sidebar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 0;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 20;
+    -fx-min-width: 150;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #34495e;
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: #2980b9;
+}
+
+/* Header styling */
+.menu-bar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.menu-item {
+    -fx-padding: 5 15;
+}
+
+/* Content area styling */
+.content-area {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 20;
+}
+
+/* Table styling */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 10;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f0f0f0 transparent;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 8 15;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button.danger {
+    -fx-background-color: #e74c3c;
+}
+
+.button.danger:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Text field styling */
+.text-field {
+    -fx-background-color: white;
+    -fx-padding: 8 15;
+    -fx-background-radius: 4;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 4;
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+}
+
+/* Welcome section styling */
+.welcome-section {
+    -fx-background-color: #34495e;
+    -fx-padding: 20;
+}
+
+.welcome-text {
+    -fx-fill: white;
+    -fx-font-size: 18px;
+}
+
+.username-text {
+    -fx-fill: #3498db;
+    -fx-font-size: 14px;
+}

@@ -48,6 +48,11 @@ public class BaseController {
         this.currentUser = user;
         setupButtonVisibility();
         usernameLabel.setText(user.getUsername());
+        try {
+            ctrlRightPane(urls.get("Dashboard"));
+        } catch (IOException e) {
+            DisplayAlert.showError("Error", "Could not load dashboard");
+        }
     }
     private void setupButtonVisibility() {
         if (currentUser != null && usersButton != null && currentUser.getRole() != Role.ADMIN) {
