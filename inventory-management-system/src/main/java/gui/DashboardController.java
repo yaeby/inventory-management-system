@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class DashboardController implements Initializable {
+public class DashboardController  {
     @FXML private Label totalProductsLabel;
     @FXML private Label lowStockLabel;
     @FXML private Label totalOrdersLabel;
@@ -39,8 +39,8 @@ public class DashboardController implements Initializable {
     private CategoryService categoryService;
     private PurchaseService purchaseService;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+
+    public void initialize() {
         productService = new ProductService(new ProductRepository());
         orderService = new OrderService(new OrderRepository());
         categoryService = new CategoryService(new CategoryRepository());

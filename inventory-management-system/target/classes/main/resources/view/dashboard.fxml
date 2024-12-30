@@ -14,8 +14,8 @@
             prefHeight="695.0" prefWidth="1050.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gui.DashboardController"
-            style="-fx-background-color: #f5f5f5;">
+            style="-fx-background-color: #f5f5f5"
+            fx:controller="gui.DashboardController">
    <children>
       <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

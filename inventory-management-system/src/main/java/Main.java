@@ -15,7 +15,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             primaryStage.setTitle("Inventory Management System");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
