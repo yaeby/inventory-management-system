@@ -1,0 +1,69 @@
+/* Sidebar */
+.sidebar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 5, 0);
+    -fx-min-width: 152;
+    -fx-pref-width: 152;
+}
+
+/* Welcome section */
+.welcome-section {
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-font-size: 36;
+    -fx-background-color: -fx-primary-dark;
+}
+
+.welcome-header {
+    -fx-text-fill: -fx-primary-dark;
+    -fx-font-size: 28;
+}
+
+.welcome-username {
+    -fx-text-fill: -fx-primary-dark;
+    -fx-font-size: 24;
+    -fx-alignment: center;
+}
+
+.welcome-separator {
+    -fx-stroke: -fx-background-lighter;
+}
+
+/* Navigation buttons */
+.nav-button {
+    -fx-background-color: -fx-background-lighter;
+    -fx-border-color: -fx-primary-dark;
+    -fx-text-fill: -fx-primary-dark;
+    -fx-font-size: 16;
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+    -fx-margin: 5;
+}
+
+.nav-button:hover {
+    -fx-background-color: derive(-fx-background-lighter, -5%);
+}
+
+.nav-button.active {
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: white;
+}
+
+/* Logout button */
+.logout-button {
+    -fx-background-color: -fx-danger;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+}
+
+.logout-button:hover {
+    -fx-background-color: derive(-fx-danger, -10%);
+}
+
+/* Center content */
+.center-pane {
+    -fx-background-color: -fx-background-light;
+}

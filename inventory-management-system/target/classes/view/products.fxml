@@ -8,52 +8,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            style="-fx-background-color: #f5f5f5;"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="/css/global.css"
             fx:controller="gui.ProductController">
    <children>
-      <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox styleClass="container" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Products Management" style="-fx-fill: #2c3e50;">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
+            <Text styleClass="header" text="Products Management">
             </Text>
 
-            <HBox alignment="CENTER_LEFT" spacing="10.0"
-                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
-               <TextField fx:id="searchField" prefWidth="300.0" promptText="Search products..."
-                          style="-fx-background-color: #f5f5f5; -fx-background-radius: 4; -fx-padding: 8; -fx-font-size: 13px;" />
-               <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddProduct" text="Add New Product"
-                       style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 13px; -fx-padding: 8 15; -fx-background-radius: 4; -fx-cursor: hand;" />
+            <HBox styleClass="search-section" alignment="CENTER_LEFT" spacing="10.0">
+               <TextField fx:id="searchField" prefWidth="300.0" promptText="Search products..." styleClass="search-field"/>
+               <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddProduct" text="Add New Product" styleClass="add-button"/>
             </HBox>
 
-            <AnchorPane VBox.vgrow="ALWAYS"
-                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);">
+            <AnchorPane styleClass="table-container" VBox.vgrow="ALWAYS">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <TableView fx:id="productTable" maxHeight="Infinity" maxWidth="Infinity"
-                             style="-fx-background-color: white; -fx-background-radius: 8; -fx-font-size: 13px;"
-                             AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                             AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"
+                             styleClass="table-view">
                      <columns>
-                        <TableColumn fx:id="codeColumn" prefWidth="129.0" text="Code" style="-fx-alignment: CENTER-LEFT;"/>
-                        <TableColumn fx:id="nameColumn" prefWidth="127.0" text="Name" style="-fx-alignment: CENTER-LEFT;"/>
-                        <TableColumn fx:id="categoryColumn" prefWidth="140.0" text="Category" style="-fx-alignment: CENTER-LEFT;"/>
-                        <TableColumn fx:id="brandColumn" prefWidth="123.0" text="Brand" style="-fx-alignment: CENTER-LEFT;"/>
-                        <TableColumn fx:id="quantityColumn" prefWidth="133.0" text="Quantity" style="-fx-alignment: CENTER;"/>
-                        <TableColumn fx:id="costPriceColumn" prefWidth="115.0" text="Cost Price" style="-fx-alignment: CENTER-RIGHT;"/>
-                        <TableColumn fx:id="sellPriceColumn" prefWidth="133.0" text="Sell Price" style="-fx-alignment: CENTER-RIGHT;"/>
-                        <TableColumn fx:id="actionsColumn" prefWidth="129.0" text="Actions" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="codeColumn" prefWidth="129.0" text="Code" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="nameColumn" prefWidth="127.0" text="Name" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="categoryColumn" prefWidth="140.0" text="Category" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="brandColumn" prefWidth="123.0" text="Brand" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="quantityColumn" prefWidth="133.0" text="Quantity" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="costPriceColumn" prefWidth="115.0" text="Cost Price" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="sellPriceColumn" prefWidth="133.0" text="Sell Price" styleClass="table-column,align-left"/>
+                        <TableColumn fx:id="actionsColumn" prefWidth="129.0" text="Actions" styleClass="table-column,align-right"/>
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

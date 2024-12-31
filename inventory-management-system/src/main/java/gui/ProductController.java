@@ -2,6 +2,7 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,6 +72,14 @@ public class ProductController {
             private final HBox buttons = new HBox(5, editBtn, deleteBtn);
 
             {
+                buttons.setAlignment(Pos.CENTER);
+
+                editBtn.getStyleClass().add("table-action-button");
+                editBtn.getStyleClass().add("edit-button");
+
+                deleteBtn.getStyleClass().add("table-action-button");
+                deleteBtn.getStyleClass().add("delete-button");
+
                 editBtn.setOnAction(event -> {
                     Product product = getTableView().getItems().get(getIndex());
                     handleEditProduct(product);
