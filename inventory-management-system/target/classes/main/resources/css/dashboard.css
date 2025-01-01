@@ -35,6 +35,15 @@
     -fx-padding: 15;
 }
 
+/* Custom Bar Styles */
+.bar-jan { -fx-bar-fill: #3498db; } /* Blue for January */
+.bar-feb { -fx-bar-fill: #2ecc71; } /* Green for February */
+.bar-mar { -fx-bar-fill: #e74c3c; } /* Red for March */
+.bar-apr { -fx-bar-fill: #f1c40f; } /* Yellow for April */
+.bar-may { -fx-bar-fill: #9b59b6; } /* Purple for May */
+.bar-jun { -fx-bar-fill: #1abc9c; } /* Teal for June */
+.bar-jul { -fx-bar-fill: #e67e22; } /* Orange for July */
+
 .chart-title {
     -fx-font-weight: bold;
     -fx-text-fill: -fx-primary-dark;

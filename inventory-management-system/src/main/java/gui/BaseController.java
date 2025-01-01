@@ -45,12 +45,8 @@ public class BaseController {
         this.currentUser = user;
         setupButtonVisibility();
         usernameLabel.setText(user.getUsername());
-        try {
-            ctrlRightPane(urls.get("Dashboard"));
-        } catch (IOException e) {
-            DisplayAlert.showError("Error", "Could not load dashboard");
-        }
     }
+
     private void setupButtonVisibility() {
         if (currentUser != null && usersButton != null && currentUser.getRole() != Role.ADMIN) {
             usersButton.setVisible(false);
@@ -59,7 +55,7 @@ public class BaseController {
     }
 
     @FXML
-    void btnNavigators(ActionEvent event) {
+    private void btnNavigators(ActionEvent event) {
         Button btn = (Button) event.getSource();
         String btnText = btn.getText();
         String url = urls.get(btnText);
@@ -86,7 +82,7 @@ public class BaseController {
     }
 
     @FXML
-    private void logout(ActionEvent event) {
+    private void logout() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
             Scene scene = new Scene(root);

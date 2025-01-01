@@ -1,7 +1,6 @@
 package gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -90,7 +89,7 @@ public class DashboardController  {
             activities.add(new Object[]{
                     order.getOrderDate(),
                     String.format(
-                            "Order #%d - Customer: %s - Total: + $%.2f",
+                            "Order #%d - Customer: %s - Total: +$%.2f",
                             order.getId(),
                             order.getCustomer().getName(),
                             order.getProduct().getSellPrice() * order.getQuantity()
@@ -104,7 +103,7 @@ public class DashboardController  {
             activities.add(new Object[]{
                     purchase.getPurchaseDate(),
                     String.format(
-                            "Purchase #%d - Supplier: %s - Total: - $%.2f",
+                            "Purchase #%d - Supplier: %s - Total: -$%.2f",
                             purchase.getId(),
                             purchase.getSupplier().getName(),
                             purchase.getProduct().getCostPrice() * purchase.getQuantity()

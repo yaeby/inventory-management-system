@@ -15,6 +15,7 @@
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       stylesheets="/css/global.css"
+      styleClass="container"
       fx:controller="gui.OrderDialogController"
 >
     <padding>
@@ -24,9 +25,9 @@
         <GridPane hgap="10.0" vgap="10.0">
             <children>
                 <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <ComboBox fx:id="customerComboBox" prefWidth="150.0" promptText="select customer" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <ComboBox fx:id="customerComboBox" promptText="select customer" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <Label text="Product:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <ComboBox fx:id="productComboBox" prefWidth="150.0" promptText="select product" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <ComboBox fx:id="productComboBox" promptText="select product" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
@@ -46,8 +47,8 @@
         </GridPane>
 
         <HBox alignment="CENTER_RIGHT" spacing="10.0">
-            <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" styleClass="button"/>
-            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" styleClass="button, delete"/>
+            <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" styleClass="dialog"/>
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" styleClass="dialog, delete"/>
         </HBox>
     </children>
 </VBox>

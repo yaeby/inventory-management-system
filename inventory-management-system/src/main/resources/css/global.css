@@ -196,6 +196,7 @@
     -fx-background-color: -fx-background-light;
     -fx-background-radius: 4;
     -fx-padding: 4;
+    -fx-min-width: 200;
 }
 
 .combo-box .list-cell {
@@ -223,4 +224,10 @@
 
 .combo-box .arrow {
     -fx-background-color: -fx-primary-dark;
+}
+
+/* dialog */
+.dialog{
+    -fx-min-width: 130;
+    -fx-max-height: 30;
 }

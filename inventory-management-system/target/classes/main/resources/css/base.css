@@ -28,11 +28,6 @@
     -fx-background-color: derive(-fx-background-lighter, -5%);
 }
 
-.nav-button.active {
-    -fx-background-color: -fx-secondary;
-    -fx-text-fill: white;
-}
-
 /* Logout button */
 .logout-button {
     -fx-background-color: -fx-danger;
