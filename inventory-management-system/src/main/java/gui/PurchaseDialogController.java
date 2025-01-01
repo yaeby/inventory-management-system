@@ -67,9 +67,12 @@ public class PurchaseDialogController {
             DisplayAlert.showError("Validation Error", "Please select a product");
             return false;
         }
-        int quantity;
         try {
-            quantity = Integer.parseInt(quantityField.getText());
+            int quantity = Integer.parseInt(quantityField.getText());
+            if(quantity <= 0){
+                DisplayAlert.showError("Validation Error", "Quantity must be a positive number");
+                return false;
+            }
         } catch (NumberFormatException e) {
             DisplayAlert.showError("Validation Error", "Please enter a valid quantity");
             return false;
