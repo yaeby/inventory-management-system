@@ -1,46 +1,46 @@
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\factory\CommandFactory.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\repository\IRepository.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\user\GetUserByIdCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\service\IService.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\decorator\concrete\InsuranceDecorator.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\menu\Printer.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\product\AddProductCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\product\DeleteProductCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\repository\UserRepository.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\delivery\ProcessSpecialOrders.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\user\DeleteUserCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\decorator\BaseOrderDecorator.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\exceptions\ResourceNotFoundException.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\decorator\OrderDecorator.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\builder\GenericBuilder.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\decorator\concrete\ExpressDeliveryDecorator.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\repository\ProductRepository.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\gui\BaseController.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\model\Product.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\Command.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\gui\LoginController.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\factory\DeliveryFactory.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\model\User.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\user\UpdateUserCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\model\CompositeOrder.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\model\IOrder.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\model\Client.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\product\GetProductByIdCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\user\AddUserCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\gui\OrdersController.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\CommandExecutor.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\gui\SuppliersController.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\user\GetAllUsersCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\service\DeliveryService.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\service\UserService.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\database\ConnectionFactory.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\factory\ProductCommandFactory.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\product\GetAllProductsCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\delivery\ProcessOrders.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\Main.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\service\ProductService.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\factory\UserCommandFactory.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\model\Order.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\commands\product\UpdateProductCommand.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\gui\ProductsController.java
-D:\FAF\Year 3\TMPS\inventory-management-system\src\main\java\service\Service.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\builder\GenericBuilder.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\database\ConnectionFactory.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\BaseController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\CategoryController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\CustomerController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\DashboardController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\DisplayAlert.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\LoginController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\OrderDialogController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\OrdersController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\ProductController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\ProductDialogController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\PurchaseDialogController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\PurchasesController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\SupplierController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\gui\UserController.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\handler\LoginHandler.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\handler\LoginResult.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\handler\UserExistsHandler.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\handler\ValidPasswordHandler.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\main\Main.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Category.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Client.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Customer.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Order.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Product.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Purchase.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Role.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\Supplier.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\model\User.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\CategoryRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\CustomerRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\IRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\OrderRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\ProductRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\PurchaseRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\SupplierRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\repository\UserRepository.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\CategoryService.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\CustomerService.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\OrderService.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\ProductService.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\PurchaseService.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\Service.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\SupplierService.java
+D:\FAF\year-3\inventory-management-system\inventory-management-system\src\main\java\service\UserService.java
