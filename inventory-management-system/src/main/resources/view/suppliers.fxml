@@ -82,8 +82,8 @@
                                                 </GridPane>
                                                 <HBox alignment="CENTER_RIGHT" spacing="10.0">
                                                     <children>
-                                                        <Button styleClass="sidebar-menu-item" mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                                                        <Button styleClass="sidebar-menu-item, delete" mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
+                                                        <Button styleClass="button" mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                                                        <Button styleClass="button, delete" mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
                                                     </children>
                                                 </HBox>
                                             </children>

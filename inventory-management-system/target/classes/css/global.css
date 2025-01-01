@@ -35,26 +35,34 @@
 }
 
 .label {
-    -fx-text-fill: -fx-primary-light;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
 }
 
 /* Button Styles */
 .button {
-    -fx-background-color: -fx-background-light;
-    -fx-text-fill: -fx-primary-dark;
-    -fx-background-radius: 5;
-    -fx-cursor: hand;
-    -fx-font-size: 14px;
-}
-
-.primary-button {
     -fx-background-color: -fx-secondary;
     -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 10 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-min-width: 210;
+    -fx-max-width: 210;
 }
 
-.danger-button {
+.button:hover {
+    -fx-background-color: derive(-fx-primary-dark, 20%);
+}
+
+.button.delete {
     -fx-background-color: -fx-danger;
-    -fx-text-fill: white;
+}
+
+.button.delete:hover {
+    -fx-background-color: derive(-fx-danger, -30%);
 }
 
 /* Text Field Styles */
@@ -176,11 +184,14 @@
 
 /* Sidebar Styles */
 .sidebar {
-    -fx-background-color: -fx-primary-dark;
+    -fx-background-color: white;
     -fx-padding: 20;
     -fx-min-width: 250;
     -fx-pref-width: 250;
     -fx-max-width: 250;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 5, 0);
+    /*-fx-min-width: 152;*/
+    /*-fx-pref-width: 152;*/
 }
 
 .sidebar-header {
@@ -193,30 +204,6 @@
 .sidebar-menu {
     -fx-spacing: 10;
     -fx-padding: 10 0;
-}
-
-.sidebar-menu-item {
-    -fx-background-color: -fx-secondary;
-    -fx-text-fill: white;
-    -fx-font-size: 14;
-    -fx-padding: 10 15;
-    -fx-background-radius: 5;
-    -fx-cursor: hand;
-    -fx-alignment: CENTER_LEFT;
-    -fx-min-width: 210;
-    -fx-max-width: 210;
-}
-
-.sidebar-menu-item:hover {
-    -fx-background-color: derive(-fx-primary-dark, 20%);
-}
-
-.sidebar-menu-item.delete {
-    -fx-background-color: -fx-danger;
-}
-
-.sidebar-menu-item.delete:hover {
-    -fx-background-color: derive(-fx-danger, -30%);
 }
 
 /* ComboBox Styles */
@@ -251,17 +238,4 @@
 
 .combo-box .arrow {
     -fx-background-color: -fx-primary-dark;
-}
-
-/* Style for labels in the sidebar */
-.sidebar label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333; /* Dark gray */
-}
-
-/* Style for dynamic labels (values) */
-.sidebar .label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #555; /* Slightly lighter gray */
 }
