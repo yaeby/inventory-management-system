@@ -15,15 +15,15 @@ making it an excellent resource for understanding and implementing robust softwa
 - **JavaFX GUI**
 - **OOP Principles**
 - **Design Patterns**: 
-  - **Singleton**: 
-  - **Generic Builder**: 
-  - **Abstract Factory**:
-  - **Bridge**:
-  - **Composite**:
-  - **Decorator**:
-  - **Chain of Responsibility**:
-  - **Command**:
-  - **Template**:
+  - **Singleton**:
+  - **Generic Builder**
+  - **Abstract Factory**
+  - **Bridge**
+  - **Composite**
+  - **Decorator**
+  - **Chain of Responsibility**
+  - **Command**
+  - **Template**
 
 ---
 
