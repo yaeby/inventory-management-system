@@ -40,3 +40,19 @@ making it an excellent resource for understanding and implementing robust softwa
 
 ---
    
+## How to Run
+
+1. Clone the repository:
+   ```bash
+    git clone https://github.com/yaeby/inventory-management-system.git
+   ```
+
+2. Clean and build the project
+    ```bash
+    mvn clean install
+   ```
+
+3. Run the app
+    ```bash
+    mvn javafx:run
+   ```
