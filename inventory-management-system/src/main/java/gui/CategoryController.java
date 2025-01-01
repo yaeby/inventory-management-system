@@ -1,8 +1,6 @@
 package gui;
 
 import builder.GenericBuilder;
-import commands.Command;
-import commands.user.DeleteUserCommand;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -69,10 +67,9 @@ public class CategoryController {
 
     private void setupSearch(){
         FilteredList<Category> filteredData = new FilteredList<>(categoryList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(category -> category.getName().toLowerCase().contains(newValue.toLowerCase()));
-        });
-
+        searchField.textProperty().addListener((observable, oldValue, newValue) ->
+                filteredData.setPredicate(category ->
+                        category.getName().toLowerCase().contains(newValue.toLowerCase())));
         categoryTable.setItems(filteredData);
     }
 
@@ -118,7 +115,6 @@ public class CategoryController {
         }
     }
 
-    @FXML
     private void clearFields(){
         selectedCategory = null;
         nameField.clear();

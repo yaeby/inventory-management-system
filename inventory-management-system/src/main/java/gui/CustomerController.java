@@ -79,19 +79,17 @@ public class CustomerController {
 
     private void setupSearch() {
         FilteredList<Customer> filteredData = new FilteredList<>(customerList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(customer -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(customer -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
 
-                return customer.getName().toLowerCase().contains(lowerCaseFilter)
-                        || customer.getEmail().toLowerCase().contains(lowerCaseFilter)
-                        || customer.getPhone().toLowerCase().contains(lowerCaseFilter)
-                        || customer.getAddress().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
+            return customer.getName().toLowerCase().contains(lowerCaseFilter)
+                    || customer.getEmail().toLowerCase().contains(lowerCaseFilter)
+                    || customer.getPhone().toLowerCase().contains(lowerCaseFilter)
+                    || customer.getAddress().toLowerCase().contains(lowerCaseFilter);
+        }));
 
         customerTable.setItems(filteredData);
     }
@@ -142,7 +140,6 @@ public class CustomerController {
         }
     }
 
-    @FXML
     private void clearFields() {
         selectedCustomer = null;
         nameField.clear();

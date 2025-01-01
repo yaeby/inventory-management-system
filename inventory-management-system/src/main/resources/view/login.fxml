@@ -10,11 +10,14 @@
 <VBox
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
-        fx:controller="gui.LoginController"
         alignment="CENTER"
         spacing="10"
         prefHeight="400.0"
-        prefWidth="600.0">
+        prefWidth="600.0"
+        stylesheets="/css/global.css"
+        styleClass="container"
+        fx:controller="gui.LoginController"
+>
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -39,5 +42,7 @@
     <Button
             text="Login"
             onAction="#handleLogin"
-            defaultButton="true"/>
+            defaultButton="true"
+            styleClass="dialog"
+    />
 </VBox>

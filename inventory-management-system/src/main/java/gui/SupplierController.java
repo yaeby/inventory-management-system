@@ -143,7 +143,6 @@ public class SupplierController {
         }
     }
 
-    @FXML
     private void clearFields() {
         selectedSupplier = null;
         nameField.clear();

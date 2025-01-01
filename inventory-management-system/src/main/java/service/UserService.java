@@ -39,4 +39,9 @@ public class UserService extends Service<User, Long>{
     public User findByName(String username) {
         return repository.findByName(username);
     }
+
+    @Override
+    public int getTotalCount() {
+        return super.getTotalCount();
+    }
 }

@@ -19,6 +19,8 @@ public abstract class Service<T, ID> {
         return repository.findById(id);
     }
 
+    public T findByName(String name) {return repository.findByName(name);}
+
     public void add(T entity) {
         repository.add(entity);
     }
@@ -30,4 +32,6 @@ public abstract class Service<T, ID> {
     public void delete(ID id) {
         repository.delete(id);
     }
+
+    public int getTotalCount() {return repository.getTotalCount();}
 }

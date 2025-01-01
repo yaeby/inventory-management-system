@@ -35,4 +35,9 @@ public class SupplierService extends Service<Supplier, Long>{
     public void delete(Long aLong) {
         super.delete(aLong);
     }
+
+    @Override
+    public int getTotalCount() {
+        return super.getTotalCount();
+    }
 }

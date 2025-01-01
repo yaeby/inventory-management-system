@@ -1,0 +1,137 @@
+/* Stat Cards */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);
+    -fx-padding: 15;
+}
+
+.stat-card .stat-label {
+    -fx-text-fill: -fx-primary-light;
+}
+
+.stat-value {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.stat-value.default {
+    -fx-text-fill: -fx-primary-dark;
+}
+
+.stat-value.success {
+    -fx-text-fill: -fx-success;
+}
+
+.stat-value.danger {
+    -fx-text-fill: -fx-danger;
+}
+
+/* Charts Section */
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);
+    -fx-padding: 15;
+}
+
+/* Custom Bar Styles */
+.bar-jan { -fx-bar-fill: #3498db; } /* Blue for January */
+.bar-feb { -fx-bar-fill: #2ecc71; } /* Green for February */
+.bar-mar { -fx-bar-fill: #e74c3c; } /* Red for March */
+.bar-apr { -fx-bar-fill: #f1c40f; } /* Yellow for April */
+.bar-may { -fx-bar-fill: #9b59b6; } /* Purple for May */
+.bar-jun { -fx-bar-fill: #1abc9c; } /* Teal for June */
+.bar-jul { -fx-bar-fill: #e67e22; } /* Orange for July */
+
+.chart-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-dark;
+}
+
+/* Charts */
+.chart {
+    -fx-padding: 10;
+}
+
+.pie-chart {
+    -fx-padding: 10;
+}
+
+.bar-chart {
+    -fx-padding: 10;
+}
+
+/* Recent Activity Section */
+.recent-activity {
+    -fx-spacing: 10;
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);
+    -fx-padding: 15;
+}
+
+.recent-activity .header {
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-dark;
+}
+
+/* ScrollPane customization */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* VBox container */
+.dashboard-content {
+    -fx-background-color: transparent;
+}
+
+/* Chart Colors */
+.default-color0.chart-pie { -fx-pie-color: #3498db; }
+.default-color1.chart-pie { -fx-pie-color: #2ecc71; }
+.default-color2.chart-pie { -fx-pie-color: #e74c3c; }
+.default-color3.chart-pie { -fx-pie-color: #f1c40f; }
+.default-color4.chart-pie { -fx-pie-color: #9b59b6; }
+
+.chart-pie-label {
+    -fx-fill: -fx-primary-dark;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: -fx-primary-light;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+/* Bar Chart */
+.chart-bar {
+    -fx-bar-fill: #3498db;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #ecf0f1;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ecf0f1;
+}
+
+.axis {
+    -fx-tick-label-fill: -fx-primary-light;
+}
+
+.axis-label {
+    -fx-text-fill: -fx-primary-dark;
+}

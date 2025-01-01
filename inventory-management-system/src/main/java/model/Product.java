@@ -107,16 +107,6 @@
 
         @Override
         public String toString() {
-            return "Product{" +
-                    "prodId=" + id +
-                    ", productCode='" + productCode + '\'' +
-                    ", productName='" + productName + '\'' +
-                    ", brand='" + brand + '\'' +
-                    ", quantity=" + quantity +
-                    ", costPrice=" + costPrice +
-                    ", sellPrice=" + sellPrice +
-                    ", totalCost=" + totalCost +
-                    ", totalRevenue=" + totalRevenue +
-                    '}';
+            return getProductCode();
         }
     }

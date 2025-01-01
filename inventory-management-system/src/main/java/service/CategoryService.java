@@ -35,4 +35,9 @@ public class CategoryService extends Service<Category, Long>{
     public void delete(Long aLong) {
         super.delete(aLong);
     }
+
+    @Override
+    public int getTotalCount() {
+        return super.getTotalCount();
+    }
 }

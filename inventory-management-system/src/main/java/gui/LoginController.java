@@ -48,13 +48,13 @@ public class LoginController {
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.centerOnScreen();
+                stage.setMaximized(true);
                 stage.show();
             } else {
                 errorLabel.setText(result.message());
             }
         } catch (IOException e) {
-            errorLabel.setText("Error loading dashboard");
-            e.printStackTrace();
+            errorLabel.setText("Error starting the app");
         }
     }
 }

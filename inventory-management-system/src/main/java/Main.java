@@ -12,9 +12,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+            Scene scene = new Scene(root);
             primaryStage.setTitle("Inventory Management System");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.setResizable(true);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -22,6 +23,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-    launch(args);
+        launch(args);
     }
 }

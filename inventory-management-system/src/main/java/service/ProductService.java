@@ -2,22 +2,27 @@ package service;
 
 import model.Product;
 import repository.IRepository;
+import repository.ProductRepository;
+
 import java.util.List;
 
 public class ProductService extends Service<Product, Long>{
 
-    public ProductService(IRepository<Product, Long> repository) {
-        super(repository);
+    public final ProductRepository repository;
+
+    public ProductService(ProductRepository productRepository) {
+        super(productRepository);
+        this.repository = productRepository;
     }
 
     @Override
     public List<Product> findAll(){
-        return repository.findAll();
+        return super.findAll();
     }
 
     @Override
     public Product findById(Long id){
-        return repository.findById(id);
+        return super.findById(id);
     }
 
     @Override
@@ -35,5 +40,18 @@ public class ProductService extends Service<Product, Long>{
     @Override
     public void delete(Long id) {
         super.delete(id);
+    }
+
+    @Override
+    public int getTotalCount() {
+        return super.getTotalCount();
+    }
+
+    public int getTotalCountByCategory(Long categoryId){
+        return repository.getTotalCountByCategory(categoryId);
+    }
+
+    public int getLowStockCount(){
+        return repository.getLowStockCount();
     }
 }

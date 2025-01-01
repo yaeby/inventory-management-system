@@ -1,9 +1,8 @@
 package gui;
 
-import commands.Command;
-import commands.product.DeleteProductCommand;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -73,6 +72,13 @@ public class ProductController {
             private final HBox buttons = new HBox(5, editBtn, deleteBtn);
 
             {
+                buttons.setAlignment(Pos.CENTER);
+
+                editBtn.getStyleClass().add("table-action-button");
+
+                deleteBtn.getStyleClass().add("table-action-button");
+                deleteBtn.getStyleClass().add("delete");
+
                 editBtn.setOnAction(event -> {
                     Product product = getTableView().getItems().get(getIndex());
                     handleEditProduct(product);
@@ -108,21 +114,16 @@ public class ProductController {
 
     private void setupSearch() {
         FilteredList<Product> filteredData = new FilteredList<>(productList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(product -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                return product.getProductCode().toLowerCase().contains(lowerCaseFilter)
-                        || product.getProductName().toLowerCase().contains(lowerCaseFilter)
-                        || product.getBrand().toLowerCase().contains(lowerCaseFilter)
-                        || product.getCategory().getName().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
-
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(product -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            return product.getProductCode().toLowerCase().contains(lowerCaseFilter)
+                    || product.getProductName().toLowerCase().contains(lowerCaseFilter)
+                    || product.getBrand().toLowerCase().contains(lowerCaseFilter)
+                    || product.getCategory().getName().toLowerCase().contains(lowerCaseFilter);
+        }));
         productTable.setItems(filteredData);
     }
 
@@ -144,8 +145,7 @@ public class ProductController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                Command command = new DeleteProductCommand(productService, product);
-                command.execute();
+                productService.delete(product.getId());
                 loadProducts();
             } catch (Exception e) {
                 DisplayAlert.showError("Error deleting product", e.getMessage());

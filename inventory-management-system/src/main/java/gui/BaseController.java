@@ -18,34 +18,26 @@ import java.util.Map;
 
 public class BaseController {
     @FXML
-    private Button productsButton;
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button ordersButton;
-    @FXML
-    private Button usersButton;
-    @FXML
     private Button logoutButton;
     @FXML
-    private Button customersButton;
-    @FXML
-    private Button suppliersButton;
+    private Button usersButton;
     @FXML
     private AnchorPane centerPane;
     @FXML
     private Label usernameLabel;
 
     private User currentUser;
-    private final Map<String, String> urls = new HashMap<>();
+    private final Map<String, String> urls;
 
     public BaseController() {
+        urls = new HashMap<>();
         urls.put("Dashboard", "/view/dashboard.fxml");
         urls.put("Categories", "/view/categories.fxml");
         urls.put("Products", "/view/products.fxml");
         urls.put("Customers", "/view/customers.fxml");
         urls.put("Suppliers", "/view/suppliers.fxml");
         urls.put("Orders", "/view/orders.fxml");
+        urls.put("Purchases", "/view/purchases.fxml");
         urls.put("Users", "/view/users.fxml");
     }
 
@@ -54,6 +46,7 @@ public class BaseController {
         setupButtonVisibility();
         usernameLabel.setText(user.getUsername());
     }
+
     private void setupButtonVisibility() {
         if (currentUser != null && usersButton != null && currentUser.getRole() != Role.ADMIN) {
             usersButton.setVisible(false);
@@ -62,7 +55,7 @@ public class BaseController {
     }
 
     @FXML
-    void btnNavigators(ActionEvent event) {
+    private void btnNavigators(ActionEvent event) {
         Button btn = (Button) event.getSource();
         String btnText = btn.getText();
         String url = urls.get(btnText);
@@ -70,7 +63,7 @@ public class BaseController {
         try {
             ctrlRightPane(url);
         } catch (IOException e) {
-            DisplayAlert.showError("Error", "Could not load FXML: " + url);
+            DisplayAlert.showError("Error", "Error loading FXML: " + url);
         }
     }
 
@@ -89,7 +82,7 @@ public class BaseController {
     }
 
     @FXML
-    private void logout(ActionEvent event) {
+    private void logout() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
             Scene scene = new Scene(root);
