@@ -5,13 +5,14 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setTitle("Inventory Management System");
             primaryStage.setScene(scene);
