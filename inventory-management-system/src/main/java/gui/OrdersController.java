@@ -12,9 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Order;
-import repository.CustomerRepository;
 import repository.OrderRepository;
-import service.CustomerService;
 import service.OrderService;
 
 import java.io.IOException;
@@ -49,7 +47,6 @@ public class OrdersController {
 
     public void initialize() {
         orderService = new OrderService(new OrderRepository());
-        CustomerService customerService = new CustomerService(new CustomerRepository());
         setupColumns();
         loadOrders();
         setupSearch();
@@ -90,17 +87,15 @@ public class OrdersController {
 
     private void setupSearch(){
         FilteredList<Order> filteredData = new FilteredList<>(orderList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(order -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return order.getProduct().getProductCode().toLowerCase().contains(lowerCaseFilter)
-                        || order.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)
-                        || order.getCustomer().getName().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(order -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            return order.getProduct().getProductCode().toLowerCase().contains(lowerCaseFilter)
+                    || order.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)
+                    || order.getCustomer().getName().toLowerCase().contains(lowerCaseFilter);
+        }));
         orderTable.setItems(filteredData);
     }
 
@@ -125,7 +120,6 @@ public class OrdersController {
         }
     }
 
-    @FXML
     private void clearFields(){
         selectedOrder = null;
         customerLabel.setText("");

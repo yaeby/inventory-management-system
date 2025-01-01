@@ -75,10 +75,9 @@ public class ProductController {
                 buttons.setAlignment(Pos.CENTER);
 
                 editBtn.getStyleClass().add("table-action-button");
-                editBtn.getStyleClass().add("edit-button");
 
                 deleteBtn.getStyleClass().add("table-action-button");
-                deleteBtn.getStyleClass().add("delete-button");
+                deleteBtn.getStyleClass().add("delete");
 
                 editBtn.setOnAction(event -> {
                     Product product = getTableView().getItems().get(getIndex());
@@ -115,21 +114,16 @@ public class ProductController {
 
     private void setupSearch() {
         FilteredList<Product> filteredData = new FilteredList<>(productList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(product -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                return product.getProductCode().toLowerCase().contains(lowerCaseFilter)
-                        || product.getProductName().toLowerCase().contains(lowerCaseFilter)
-                        || product.getBrand().toLowerCase().contains(lowerCaseFilter)
-                        || product.getCategory().getName().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
-
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(product -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            return product.getProductCode().toLowerCase().contains(lowerCaseFilter)
+                    || product.getProductName().toLowerCase().contains(lowerCaseFilter)
+                    || product.getBrand().toLowerCase().contains(lowerCaseFilter)
+                    || product.getCategory().getName().toLowerCase().contains(lowerCaseFilter);
+        }));
         productTable.setItems(filteredData);
     }
 

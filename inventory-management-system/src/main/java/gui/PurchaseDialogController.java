@@ -42,7 +42,7 @@ public class PurchaseDialogController {
             if(validateInput()){
                 Product product = productComboBox.getValue();
                 int quantity = Integer.parseInt(quantityField.getText());
-                product.setQuantity(product.getQuantity() - quantity);
+                product.setQuantity(product.getQuantity() + quantity);
                 productService.update(product);
                 Purchase purchase = GenericBuilder.of(Purchase::new)
                         .with(Purchase::setSupplier, supplierComboBox.getValue())
@@ -70,15 +70,6 @@ public class PurchaseDialogController {
         int quantity;
         try {
             quantity = Integer.parseInt(quantityField.getText());
-            if (quantity <= 0) {
-                throw new NumberFormatException();
-            }
-            if (productComboBox.getValue().getQuantity() < quantity) {
-                DisplayAlert.showWarning("Invalid quantity",
-                        "The product stock is less than " + quantity +
-                                ".\nAvailable: " + productComboBox.getValue().getQuantity());
-                return false;
-            }
         } catch (NumberFormatException e) {
             DisplayAlert.showError("Validation Error", "Please enter a valid quantity");
             return false;

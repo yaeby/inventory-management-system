@@ -12,12 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Purchase;
-import repository.ProductRepository;
 import repository.PurchaseRepository;
-import repository.SupplierRepository;
-import service.ProductService;
 import service.PurchaseService;
-import service.SupplierService;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +47,6 @@ public class PurchasesController {
     
     public void initialize() {
         purchaseService = new PurchaseService(new PurchaseRepository());
-        SupplierService supplierService = new SupplierService(new SupplierRepository());
         setupColumns();
         loadPurchases();
         setupSearch();
@@ -95,18 +90,16 @@ public class PurchasesController {
     
     private void setupSearch() {
         FilteredList<Purchase> filteredData = new FilteredList<>(purchaseList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(purchase -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(purchase -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
 
-                return purchase.getProduct().getProductCode().toLowerCase().contains(lowerCaseFilter)
-                        || purchase.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)
-                        || purchase.getSupplier().getName().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
+            return purchase.getProduct().getProductCode().toLowerCase().contains(lowerCaseFilter)
+                    || purchase.getProduct().getProductName().toLowerCase().contains(lowerCaseFilter)
+                    || purchase.getSupplier().getName().toLowerCase().contains(lowerCaseFilter);
+        }));
         purchasesTable.setItems(filteredData);
     }
 
@@ -151,7 +144,6 @@ public class PurchasesController {
         }
     }
 
-    @FXML
     private void clearFields() {
         selectedPurchase = null;
         productCodeLabel.setText("");

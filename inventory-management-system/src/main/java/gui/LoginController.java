@@ -54,8 +54,7 @@ public class LoginController {
                 errorLabel.setText(result.message());
             }
         } catch (IOException e) {
-            errorLabel.setText("Error loading dashboard");
-            e.printStackTrace();
+            errorLabel.setText("Error starting the app");
         }
     }
 }

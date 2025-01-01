@@ -76,7 +76,7 @@
                                        </rowConstraints>
                                        <children>
                                           <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                          <Label fx:id="customerLabel" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                          <Label fx:id="customerLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                           <Label text="Code:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                           <Label fx:id="productCodeLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <Label text="Product:" GridPane.columnIndex="0" GridPane.rowIndex="2" />

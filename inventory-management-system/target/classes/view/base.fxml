@@ -23,7 +23,7 @@
                         </Label>
                         <Label fx:id="usernameLabel" styleClass="welcome-username" text="username" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0">
                         </Label>
-                        <Line endX="133.0" endY="-17.0" layoutX="62.0" layoutY="153.0" startX="-51.0" startY="-17.0"  />
+                        <Line endX="150.0" endY="-17.0" layoutX="62.0" layoutY="153.0" startX="-51.0" startY="-17.0"  />
                     </children>
                 </AnchorPane>
                 <Button fx:id="dashboardButton" layoutX="11.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnNavigators" styleClass="nav-button" text="Dashboard" />

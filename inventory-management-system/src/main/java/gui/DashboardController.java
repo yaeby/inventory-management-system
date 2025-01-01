@@ -16,13 +16,11 @@ import repository.ProductRepository;
 import repository.PurchaseRepository;
 import service.*;
 
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class DashboardController  {
@@ -134,12 +132,5 @@ public class DashboardController  {
 
             recentActivityContainer.getChildren().add(activityLabel);
         }
-    }
-
-    public void refreshDashboard() {
-        loadStatistics();
-        loadCategoriesChart();
-        loadSalesChart();
-        loadRecentActivity();
     }
 }

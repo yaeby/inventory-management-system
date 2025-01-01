@@ -75,18 +75,14 @@ public class UserController {
 
     private void setupSearch() {
         FilteredList<User> filteredData = new FilteredList<>(userList, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(user -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                return user.getUsername().toLowerCase().contains(lowerCaseFilter)
-                        || user.getRole().name().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
-
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(user -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            return user.getUsername().toLowerCase().contains(lowerCaseFilter)
+                    || user.getRole().name().toLowerCase().contains(lowerCaseFilter);
+        }));
         userTable.setItems(filteredData);
     }
 
@@ -134,7 +130,6 @@ public class UserController {
         }
     }
 
-    @FXML
     private void clearFields() {
         selectedUser = null;
         usernameField.clear();

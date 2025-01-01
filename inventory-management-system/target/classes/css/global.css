@@ -48,7 +48,7 @@
     -fx-padding: 10 15;
     -fx-background-radius: 5;
     -fx-cursor: hand;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: CENTER;
     -fx-min-width: 210;
     -fx-max-width: 210;
 }
@@ -99,12 +99,10 @@
 }
 
 .add-button {
-    -fx-background-color: -fx-secondary;
-    -fx-text-fill: white;
     -fx-font-size: 13;
     -fx-padding: 8 15;
     -fx-background-radius: 4;
-    -fx-cursor: hand;
+    -fx-pref-width: 70;
 }
 
 .add-button:hover {
@@ -168,18 +166,7 @@
     -fx-background-radius: 4;
     -fx-padding: 5 10;
     -fx-font-size: 12;
-    -fx-cursor: hand;
-    -fx-min-width: 50;
-}
-
-.edit-button {
-    -fx-background-color: -fx-secondary;
-    -fx-text-fill: white;
-}
-
-.delete-button {
-    -fx-background-color: -fx-danger;
-    -fx-text-fill: white;
+    -fx-min-width: 55;
 }
 
 /* Sidebar Styles */
@@ -190,8 +177,6 @@
     -fx-pref-width: 250;
     -fx-max-width: 250;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 5, 0);
-    /*-fx-min-width: 152;*/
-    /*-fx-pref-width: 152;*/
 }
 
 .sidebar-header {

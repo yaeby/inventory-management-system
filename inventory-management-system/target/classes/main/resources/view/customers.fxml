@@ -45,7 +45,7 @@
                                             <columns>
                                                 <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Name" styleClass="table-column,align-left"/>
                                                 <TableColumn fx:id="emailColumn" prefWidth="300.0" text="Email" styleClass="table-column,align-left"/>
-                                                <TableColumn fx:id="phoneColumn" prefWidth="250.0" text="Phone" styleClass="table-column,align-center"/>
+                                                <TableColumn fx:id="phoneColumn" prefWidth="250.0" text="Phone" styleClass="table-column,align-left"/>
                                                 <TableColumn fx:id="addressColumn" prefWidth="250.0" text="Address" styleClass="table-column,align-left"/>
                                             </columns>
                                         </TableView>
